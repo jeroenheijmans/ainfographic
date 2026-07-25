@@ -40,3 +40,9 @@ Each section contains:
 This is the place for a cross-session implementation plan.
 
 TODO: Insert a plan here.
+
+## Design decisions
+
+Recorded design decisions (tiny lightweight alternative to ADR's):
+
+NONE YET.
