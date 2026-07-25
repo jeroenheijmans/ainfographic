@@ -9,6 +9,7 @@ Only work and commit in your own branch, never on `main`.
 Never push, never amend, never do risky or destructive git operations.
 Work in milestones, do separate commits.
 Use conventional 50/72 style commit messages.
+Never add a "Co-authored By" AI attribution line - commits are fully reviewd and owned by the human operator.
 
 ## Overall plan
 
