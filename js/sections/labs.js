@@ -36,12 +36,19 @@
 
   const REGION_HUES = [250, 148, 28, 205, 325, 72];
 
+  // Display-only relabeling: DATA.md groups these by continent, but every
+  // lab currently listed under "North America"/"Asia" is US/China respectively,
+  // so the section header names the actual countries. The underlying data
+  // (region.name, used for DATA.md fidelity elsewhere) is left untouched.
+  const REGION_LABELS = { "North America": "US", "Asia": "China" };
+  function regionLabel(name) { return REGION_LABELS[name] || name; }
+
   function renderRegion(region, i) {
     const tally = region.labs.length + (region.labs.length === 1 ? " lab shown" : " labs shown");
     const hue = REGION_HUES[i % REGION_HUES.length];
     return el("div", { class: "lab-region", style: "--region-hue: " + hue }, [
       el("div", { class: "lab-region-head" }, [
-        el("span", { class: "lab-region-name", text: region.name }),
+        el("span", { class: "lab-region-name", text: regionLabel(region.name) }),
         el("span", { class: "lab-region-tally", text: tally })
       ]),
       el("div", { class: "lab-grid" }, region.labs.map(renderLabCard))

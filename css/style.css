@@ -283,16 +283,17 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 .lab-grid {
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid var(--hairline);
-  border-top: none;
-  border-left: none;
 }
 
+/* Every card borders itself on all four sides — unlike relying on the grid
+   container's edge for the last column's right border, this stays correct
+   however many cards end up in a row (e.g. a region with just one lab, or a
+   trailing partial row), since it never depends on a row being fully filled. */
 .lab-card {
-  flex: 1 1 280px;
+  flex: 0 1 25%;
+  min-width: 220px;
   background: var(--card);
-  border-left: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
+  border: 1px solid var(--hairline);
   padding: 13px 15px 15px;
   display: flex;
   flex-direction: column;
@@ -428,18 +429,17 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 .provider-grid {
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid var(--hairline);
   border-radius: 4px;
   overflow: hidden;
-  border-bottom: none;
-  border-right: none;
   margin-bottom: 14px;
 }
+/* Self-bordered on all sides for the same reason as .lab-card: correct
+   regardless of how many cards land in the final row. */
 .provider-card {
-  flex: 1 1 258px;
+  flex: 0 1 20%;
+  min-width: 220px;
   background: var(--card);
-  border-right: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
+  border: 1px solid var(--hairline);
   padding: 12px 14px 14px;
   display: flex;
   flex-direction: column;
