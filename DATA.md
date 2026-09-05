@@ -23,10 +23,10 @@ This is to prevent the data from going out of date *too* fast.
   - **Anthropic (US)**
     - Main: Claude Haiku, Claude Sonnet, Claude Opus, Claude Fable, Claude Mythos (Footnote: not publicly available.)
   - **Google (US)**
-    - Main: Gemini Flash Lite, Gemini Flash, Gemini Pro, Gemma
+    - Main: Gemini Flash, Gemini Pro, Gemma
     - Secondary: Imagen, Veo, Chirp
   - **OpenAI (US)**
-    - Main: GPT Sol, GPT Luna, GPT Terra, gpt-oss
+    - Main: GPT Astra, GPT Sol, GPT Luna, GPT Terra, gpt-oss
     - Secondary: GPT Codex, GPT nano, GPT mini, Sora, GPT Image
   - **Microsoft (US)**
     - Main: Phi
