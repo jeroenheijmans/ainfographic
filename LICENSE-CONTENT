@@ -1,0 +1,27 @@
+Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+
+This license covers the content of this repository: the data in
+js/data.js and DATA.md, and the rendered infographic (the visual output
+produced by this repository's code).
+
+It does not cover the code itself (HTML, CSS, JavaScript), which is
+licensed separately under MIT — see LICENSE.
+It also does not cover any third-party logos under logos/, which remain
+the property of their respective owners and are used under their own
+guidelines and trademark policies, not under this license.
+
+Company, product, and tool names referenced in the content are
+trademarks of their respective owners, mentioned for identification
+only. This license does not grant any rights to those trademarks.
+
+Full license text:
+https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+Human-readable summary (not a substitute for the license):
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Suggested attribution:
+"The State of Artificial Intelligence" by Jeroen Heijmans
+(https://jeroenheijmans.nl), licensed under CC BY-SA 4.0.
+Adaptations must be distributed under the same license and are not
+endorsed by the original author.
