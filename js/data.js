@@ -1,16 +1,20 @@
 window.DATA = window.DATA || {};
 
-/* Logo file extension exceptions, keyed by logo `key`/`vendorKey`. A key
-   not listed here is assumed to be logos/<key>.svg; list it here (value
+/* Logo file extension exceptions, keyed by logo `key`/`vendorKey`/`toolKey`. A
+   key not listed here is assumed to be logos/<key>.svg; list it here (value
    "png") when a vendor only provides a PNG. */
 window.DATA.logoFileExtensions = {
   aider: "png",
+  "ai-studio": "png",
   alibaba: "png",
+  antigravity: "png",
   cloudflare: "png",
   google: "png",
   litellm: "png",
   minimax: "png",
   mistral: "png",
+  qoder: "png",
+  vibe: "png",
 };
 
 /* Labs and Models — graph data for the mind-map section.
@@ -123,51 +127,51 @@ window.DATA.inference = {
 window.DATA.tools = {
   categories: [
     { name: "CLI Tools", tools: [
-      { name: "Codex", vendor: "OpenAI", vendorKey: "openai" },
-      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic" },
-      { name: "Antigravity", vendor: "Google", vendorKey: "google" },
-      { name: "Copilot", vendor: "GitHub", vendorKey: "github" },
-      { name: "Vibe", vendor: "Mistral", vendorKey: "mistral" },
-      { name: "OpenCode", vendor: "Anomaly", vendorKey: "anomaly" },
-      { name: "Aider", vendor: "open source", vendorKey: "aider" }
+      { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex" },
+      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic", toolKey: "claude-code" },
+      { name: "Antigravity", vendor: "Google", vendorKey: "google", toolKey: "antigravity" },
+      { name: "Copilot", vendor: "GitHub", vendorKey: "github", toolKey: "copilot" },
+      { name: "Vibe", vendor: "Mistral", vendorKey: "mistral", toolKey: "vibe" },
+      { name: "OpenCode", vendor: "Anomaly", vendorKey: "anomaly", toolKey: "opencode" },
+      { name: "Aider", vendor: "open source", vendorKey: "aider", toolKey: "aider" }
     ]},
     { name: "IDE Extensions", tools: [
-      { name: "Codex", vendor: "OpenAI", vendorKey: "openai" },
-      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic" },
-      { name: "Copilot", vendor: "GitHub", vendorKey: "github" },
-      { name: "Vibe", vendor: "Mistral", vendorKey: "mistral" },
-      { name: "Junie", vendor: "JetBrains", vendorKey: "jetbrains" },
-      { name: "Q Developer", vendor: "Amazon", vendorKey: "amazon" },
-      { name: "Cline", vendor: "Cline Bot Inc.", vendorKey: "cline-bot-inc" }
+      { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex" },
+      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic", toolKey: "claude-code" },
+      { name: "Copilot", vendor: "GitHub", vendorKey: "github", toolKey: "copilot" },
+      { name: "Vibe", vendor: "Mistral", vendorKey: "mistral", toolKey: "vibe" },
+      { name: "Junie", vendor: "JetBrains", vendorKey: "jetbrains", toolKey: "junie" },
+      { name: "Q Developer", vendor: "Amazon", vendorKey: "amazon", toolKey: "q-developer" },
+      { name: "Cline", vendor: "Cline Bot Inc.", vendorKey: "cline-bot-inc", toolKey: "cline" }
     ]},
     { name: "IDEs", tools: [
-      { name: "Cursor", vendor: "SpaceXAI", vendorKey: "spacexai" },
-      { name: "Antigravity", vendor: "Google", vendorKey: "google" },
-      { name: "Kiro", vendor: "Amazon", vendorKey: "amazon" },
-      { name: "Windsurf", vendor: "Cognition", vendorKey: "cognition" },
-      { name: "Zed", vendor: "Zed Industries", vendorKey: "zed-industries" },
-      { name: "Trae", vendor: "ByteDance", vendorKey: "bytedance" },
-      { name: "Qoder", vendor: "Alibaba", vendorKey: "alibaba" }
+      { name: "Cursor", vendor: "SpaceXAI", vendorKey: "spacexai", toolKey: "cursor" },
+      { name: "Antigravity", vendor: "Google", vendorKey: "google", toolKey: "antigravity" },
+      { name: "Kiro", vendor: "Amazon", vendorKey: "amazon", toolKey: "kiro" },
+      { name: "Windsurf", vendor: "Cognition", vendorKey: "cognition", toolKey: "windsurf" },
+      { name: "Zed", vendor: "Zed Industries", vendorKey: "zed-industries", toolKey: "zed" },
+      { name: "Trae", vendor: "ByteDance", vendorKey: "bytedance", toolKey: "trae" },
+      { name: "Qoder", vendor: "Alibaba", vendorKey: "alibaba", toolKey: "qoder" }
     ]},
     { name: "Standalone GUI", tools: [
-      { name: "Codex", vendor: "OpenAI", vendorKey: "openai" },
-      { name: "Claude", vendor: "Anthropic", vendorKey: "anthropic" }
+      { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex" },
+      { name: "Claude", vendor: "Anthropic", vendorKey: "anthropic", toolKey: "claude" }
     ]},
     { name: "SaaS Tools", tools: [
-      { name: "Codex", vendor: "OpenAI", vendorKey: "openai" },
-      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic" },
-      { name: "Copilot", vendor: "GitHub", vendorKey: "github" },
-      { name: "Devin", vendor: "Cognition", vendorKey: "cognition" }
+      { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex" },
+      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic", toolKey: "claude-code" },
+      { name: "Copilot", vendor: "GitHub", vendorKey: "github", toolKey: "copilot" },
+      { name: "Devin", vendor: "Cognition", vendorKey: "cognition", toolKey: "devin" }
     ]},
     { name: "Browser Dev Tools", tools: [
-      { name: "Replit", vendor: "Replit", vendorKey: "replit" },
-      { name: "AI Studio", vendor: "Google", vendorKey: "google" }
+      { name: "Replit", vendor: "Replit", vendorKey: "replit", toolKey: "replit" },
+      { name: "AI Studio", vendor: "Google", vendorKey: "google", toolKey: "ai-studio" }
     ]},
     { name: "Browser App Builders", tools: [
-      { name: "Bolt.new", vendor: "StackBlitz", vendorKey: "stackblitz" },
-      { name: "Lovable", vendor: "Lovable", vendorKey: "lovable" },
-      { name: "Base44", vendor: "Wix", vendorKey: "wix" },
-      { name: "v0", vendor: "Vercel", vendorKey: "vercel" }
+      { name: "Bolt.new", vendor: "StackBlitz", vendorKey: "stackblitz", toolKey: "bolt-new" },
+      { name: "Lovable", vendor: "Lovable", vendorKey: "lovable", toolKey: "lovable" },
+      { name: "Base44", vendor: "Wix", vendorKey: "wix", toolKey: "base44" },
+      { name: "v0", vendor: "Vercel", vendorKey: "vercel", toolKey: "v0" }
     ]}
   ]
 };

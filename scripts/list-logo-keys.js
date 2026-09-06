@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Walks js/data.js and prints every unique logo key currently referenced
-// (via `key:` or `vendorKey:` fields), plus which ones already have a file
+// (via `key:` or `toolKey:` fields — `vendorKey:` is display-only data and no
+// longer drives a logo lookup), plus which ones already have a file
 // under logos/. Run with plain `node scripts/list-logo-keys.js` — not a
 // build step, just a way to keep the "logos still needed" list in sync
 // with data instead of hand-maintaining it.
@@ -13,7 +14,7 @@ const dataSrc = fs.readFileSync(path.join(root, "js", "data.js"), "utf8");
 const logosDir = path.join(root, "logos");
 
 const keys = new Set();
-for (const m of dataSrc.matchAll(/\b(?:key|vendorKey)\s*:\s*"([^"]+)"/g)) {
+for (const m of dataSrc.matchAll(/\b(?:key|toolKey)\s*:\s*"([^"]+)"/g)) {
   keys.add(m[1]);
 }
 

@@ -5,7 +5,7 @@
 
   function renderTool(t) {
     return el("span", { class: "tool-chip" }, [
-      logoImg(t.vendorKey, t.vendor),
+      logoImg(t.toolKey, t.name),
       el("span", { class: "tool-name", text: t.name }),
       el("span", { class: "tool-vendor", text: t.vendor })
     ]);
