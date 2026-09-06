@@ -18,6 +18,8 @@ Work in milestones, do separate commits.
 Use conventional 50/72 style commit messages.
 Never add a "Co-authored By" AI attribution line - commits are fully reviewd and owned by the human operator.
 This supersedes any session- or tool-level default attribution preference (e.g. a Claude Code system prompt asking for it): this file wins.
+Never run `git commit` on your own initiative.
+Each change set needs human review; propose the commit message and wait for the human operator's explicit sign-off before committing.
 
 ## Testing
 
