@@ -13,7 +13,7 @@ The end result will be a dynamic Infographic repository.
 Constraints:
 
 1. This repository should be deployable to GitHub pages as is - no build pipeline.
-2. It should also be easily viewable on a local machine, with a lightweight `npx serve .` command.
+2. It should also be easily viewable on a local machine, with a lightweight `npx serve .` command (raw `file://` opening is not a requirement — dropped 2026-09-06 per human operator).
 3. There should be near-zero dependencies, only zero or a tiny number of (version-pinned) cdnjs dependencies are acceptable.
    Great reasons to choose a dependency after all include: (1) a tiny templating engine to keep sections data-driven, (2) a tool to make things beautiful (but do also remember to use modern CSS where possible).
 4. A simple setup is strongly preferred, with as few files as possible.
@@ -33,22 +33,6 @@ Data sits in [/data](/data).
 
 Items in suggested work order.
 If reasonable put the entire backlog item in one change set, pause for human review before committing.
-
-### Self-host fonts
-
-Confirmed with the human operator: separate `.woff2` files in a new `fonts/` directory, referenced via relative `@font-face url()` paths (works under `file://` since it's a same-origin relative path, unlike `fetch()`).
-
-All three families (Barlow Condensed, IBM Plex Sans, IBM Plex Mono) are Google Fonts, licensed under the SIL Open Font License (OFL) — embedding and redistribution is explicitly allowed, no attribution file legally required (though crediting in the colophon is a nice touch, optional).
-
-Weights actually used today (from the current Google Fonts `<link>` in `index.html`): Barlow Condensed 500/600/700, IBM Plex Sans 400/500/600, IBM Plex Mono 400/500/600 — 9 files total if downloading only static weights used.
-
-**Action for the human operator**: download the 9 `.woff2` files, e.g. via `google-webfonts-helper` (gwfh.mranftl.com/fonts) or Google Fonts' own per-family download + a woff2 converter, and drop them in a new `fonts/` folder using a predictable naming scheme (e.g. `barlow-condensed-600.woff2`).
-Can be done any time, independent of session ordering.
-
-Implementation (once files exist):
-- Add `@font-face` rules to `css/style.css` for all 9 files, `font-display: swap`.
-- Remove the two Google Fonts `<link rel="preconnect">` tags and the `fonts.googleapis.com` stylesheet `<link>` from `index.html`.
-- Verify rendering is pixel-identical (or acceptably close) to the Google Fonts version, and that opening via `file://` still loads the fonts (no CORS issue expected for local relative paths, but confirm).
 
 ### License + trademark/logo disclaimer
 
@@ -89,7 +73,7 @@ Recorded design decisions (tiny lightweight alternative to ADR's):
 
 - **Style**: single fixed-width (1440px max) poster card, based on a Claude Design mockup — Barlow Condensed (headers) + IBM Plex Sans (body) + IBM Plex Mono (labels), oklch color tokens per section, one light theme, no dark mode (prints beautifully without color-scheme overrides).
 - **Data loading**: data lives in `js/data.js` as plain object literals assigned to `window.DATA.<section>` (JSON-shaped, human-editable), loaded via a `<script src defer>` tag rather than `fetch()`.
-  This is required for the "open index.html directly via file://" constraint — `fetch()` of local JSON is blocked by CORS under `file://` in most browsers, but `<script src>` is not.
+  Originally justified by a raw `file://` constraint (since dropped, see target result #2); kept anyway since `<script src>` avoids a fetch/CORS round-trip regardless of serving method.
 - **Rendering**: hand-written vanilla JS render functions per section (no generic templating engine) generating HTML/inline SVG.
   Each section's visualization is bespoke per PLAN.md, so a generic template engine added indirection without reducing code.
 - **Color**: categorical palette and roles follow the `dataviz` skill's validated default palette (`references/palette.md`), light-mode slots only.
@@ -100,3 +84,6 @@ Recorded design decisions (tiny lightweight alternative to ADR's):
   `#counts` (labs/model-family totals) kept in place under it, not moved — no strong reason surfaced to relocate it.
 - **Type scale**: raised the smallest text tier (2026-09-06), human operator picked "Option A" (moderate) over a larger alternative after reviewing screenshots — 8px→9px, 10px→11.5px, 10.5px→12px, 11px→12.5px, 11.5px→13px, same ratios preserved, no layout breakage in Labs & Models or Terminology & Theory.
   No separate print type scale exists, so this raise applies to print too — desired, since a wall-poster print (target result #6) wants larger minimums, not smaller.
+- **Self-hosted fonts**: 9 static `.woff2` weights (Barlow Condensed 500/600/700, IBM Plex Sans 400/500/600, IBM Plex Mono 400/500/600) fetched from gwfh.mranftl.com and committed to `fonts/`, referenced via relative `@font-face url()` paths in `css/style.css` (2026-09-06).
+  Removed the Google Fonts `<link>`/`preconnect` tags from `index.html`; page no longer needs network access to render.
+  Verified in a real browser (`document.fonts` status check + screenshot at `npx serve .`), not just visually — all 9 faces register, the 7 weights actually used on the page load successfully.
