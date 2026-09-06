@@ -622,7 +622,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   padding: 15px 0;
   border-bottom: 1px solid var(--hairline-soft);
 }
-.feature-num { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; color: oklch(0.55 0.13 var(--hue-features)); }
+.feature-num { font-family: var(--font-mono); font-size: 20px; font-weight: 600; line-height: 1; color: oklch(0.55 0.13 var(--hue-features)); }
 .feature-term {
   font-family: var(--font-display);
   font-weight: 600;
