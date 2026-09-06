@@ -83,17 +83,6 @@ GitHub, JetBrains, Cline Bot Inc., Cognition, Zed Industries, ByteDance, Replit,
 
 Data oddity noted: Aider's vendor is "open source" (not a logo-able company — recommend no logo/placeholder for that one row, confirm with human operator).
 
-### Type scale / accessibility pass
-
-Smallest text sizes today: 10px (several chip/meta labels), 10.5px (a few notes/footnotes), 11-11.5px (several more labels) — genuinely small for both low-vision and general legibility, especially on a dense reference poster.
-
-This is explicitly **not a single-shot fix** — per the human operator, this needs iteration with visual review before committing.
-Suggested approach for whichever session picks this up:
-- Propose 1-2 revised type scales (e.g. raise the 10-10.5px tier to ~12px minimum, keep the ratio between tiers) and produce before/after screenshots of at least one dense section (Labs & Models or Terminology) at both screen and print sizes.
-- Print and screen may reasonably diverge here: print can tolerate smaller point sizes than screen since viewing distance differs, but a poster meant to be read on a wall (target result #6, A1-scale print) argues for *larger* minimums, not smaller — worth surfacing explicitly to the human operator rather than assuming.
-- Do this pass after #2 (background invert) and #3 (responsiveness/grid fix) land, so contrast and layout are being judged against the near-final visual base, not the current one.
-- Expect multiple review round-trips; do not commit until the human operator signs off on a specific scale.
-
 ## Design decisions
 
 Recorded design decisions (tiny lightweight alternative to ADR's):
@@ -109,3 +98,5 @@ Recorded design decisions (tiny lightweight alternative to ADR's):
   See backlog #3 above for a related but distinct row-height defect.
 - **"Rendered at" timestamp**: replaced "Edition" label with a per-page-load `Rendered at YYYY-MM-DD HH:MM UTC` string (2026-09-06); `.edition` CSS class switched from the large Barlow Condensed display treatment to the small `--font-mono` label treatment (matches `.counts`/`.colophon`) since the longer string didn't fit the old display size.
   `#counts` (labs/model-family totals) kept in place under it, not moved — no strong reason surfaced to relocate it.
+- **Type scale**: raised the smallest text tier (2026-09-06), human operator picked "Option A" (moderate) over a larger alternative after reviewing screenshots — 8px→9px, 10px→11.5px, 10.5px→12px, 11px→12.5px, 11.5px→13px, same ratios preserved, no layout breakage in Labs & Models or Terminology & Theory.
+  No separate print type scale exists, so this raise applies to print too — desired, since a wall-poster print (target result #6) wants larger minimums, not smaller.

@@ -287,6 +287,6 @@ window.DATA.initiatives = {
     { name: "OpenClaw", def: "open-source autonomous coding agent framework (by Peter Steinberger)" },
     { name: "Ralph Loop", def: "agent execution pattern that loops an LLM until success criteria are met." },
     { name: "ChatJimmy", def: "experimental hardware-based AI interface optimized for speed, by Taalas." },
-    { name: "Moltbook", def: "experimental synthetic social netork populated by AI agents" }
+    { name: "Moltbook", def: "experimental synthetic social network populated by AI agents" }
   ]
 };

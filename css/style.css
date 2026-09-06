@@ -89,7 +89,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 
 .eyebrow, .kicker {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11.5px;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--ink-faint);
@@ -189,7 +189,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 
 .panel-num {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 600;
   color: oklch(0.7 0.02 260);
 }
@@ -267,7 +267,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   flex: 1;
   text-align: right;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11.5px;
   letter-spacing: .1em;
   color: rgba(255, 255, 255, .75);
   text-transform: uppercase;
@@ -316,7 +316,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 .lab-cc {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 500;
   color: oklch(0.58 0.16 var(--region-hue, 250));
   letter-spacing: .08em;
@@ -328,7 +328,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   padding: 3.5px 9px;
   border-radius: 3px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12.5px;
   white-space: nowrap;
 }
 .lab-chip--main {
@@ -346,10 +346,10 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   border: 1px solid oklch(0.88 0.01 260);
   color: oklch(0.38 0.02 260);
 }
-.lab-chip-mark { font-size: 8px; opacity: .8; margin-left: 2px; }
+.lab-chip-mark { font-size: 9px; opacity: .8; margin-left: 2px; }
 
 .lab-footnote {
-  font-size: 10.5px;
+  font-size: 12px;
   font-style: italic;
   color: var(--ink-faint);
   line-height: 1.35;
@@ -367,7 +367,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 .lab-addendum-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11.5px;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--ink-faint);
@@ -402,7 +402,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 .hyperscaler-product {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12.5px;
   color: oklch(0.78 0.09 var(--hue-inference));
 }
 
@@ -413,7 +413,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   border-radius: 3px;
   background: rgba(255, 255, 255, .14);
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   white-space: nowrap;
 }
 .provider-card .host-chip {
@@ -455,7 +455,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   border-bottom: 1px solid var(--card-tint);
   padding-bottom: 6px;
 }
-.provider-note { font-size: 10.5px; font-style: italic; color: var(--ink-faint); }
+.provider-note { font-size: 12px; font-style: italic; color: var(--ink-faint); }
 
 .router-row {
   display: grid;
@@ -478,7 +478,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 .router-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .router-item { display: flex; flex-direction: column; gap: 5px; }
 .router-name { font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
-.router-hosts { font-size: 11.5px; color: var(--ink-muted); line-height: 1.35; }
+.router-hosts { font-size: 13px; color: var(--ink-muted); line-height: 1.35; }
 
 @media (max-width: 900px) {
   .hyperscaler-grid { grid-template-columns: 1fr; }
@@ -507,7 +507,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   text-transform: uppercase;
   color: oklch(0.4 0.11 var(--hue-tools));
 }
-.tool-cat-tally { font-family: var(--font-mono); font-size: 10px; color: oklch(0.68 0.02 260); }
+.tool-cat-tally { font-family: var(--font-mono); font-size: 11.5px; color: oklch(0.68 0.02 260); }
 
 .tool-chips { display: flex; flex-wrap: wrap; gap: 7px; }
 .tool-chip {
@@ -521,7 +521,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   white-space: nowrap;
 }
 .tool-name { font-size: 13px; font-weight: 600; color: oklch(0.28 0.04 var(--hue-tools)); }
-.tool-vendor { font-family: var(--font-mono); font-size: 10px; color: oklch(0.5 0.05 var(--hue-tools)); }
+.tool-vendor { font-family: var(--font-mono); font-size: 11.5px; color: oklch(0.5 0.05 var(--hue-tools)); }
 
 @media (max-width: 700px) {
   .tool-row { grid-template-columns: 1fr; gap: 8px; }
@@ -539,7 +539,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   padding: 15px 0;
   border-bottom: 1px solid var(--hairline-soft);
 }
-.feature-num { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: oklch(0.55 0.13 var(--hue-features)); }
+.feature-num { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; color: oklch(0.55 0.13 var(--hue-features)); }
 .feature-term {
   font-family: var(--font-display);
   font-weight: 600;
@@ -584,7 +584,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   border-radius: 3px;
   background: oklch(0.96 0.02 var(--hue-local));
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12.5px;
   color: oklch(0.32 0.05 var(--hue-local));
   white-space: nowrap;
 }
@@ -598,7 +598,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 .local-notes-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11.5px;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--ink-faint);
@@ -643,7 +643,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   text-transform: uppercase;
   color: oklch(0.34 0.11 var(--hue-sdk));
 }
-.sdk-layer-tier { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; color: oklch(0.55 0.06 var(--hue-sdk)); }
+.sdk-layer-tier { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .1em; color: oklch(0.55 0.06 var(--hue-sdk)); }
 .sdk-layer-items { display: flex; flex-wrap: wrap; gap: 6px; }
 .sdk-chip {
   display: inline-block;
@@ -652,7 +652,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   background: var(--card);
   border: 1px solid oklch(0.88 0.03 var(--hue-sdk));
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12.5px;
   color: oklch(0.3 0.05 var(--hue-sdk));
   max-width: 100%;
 }
@@ -717,7 +717,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 .term-name { font-size: 13.5px; font-weight: 600; color: oklch(0.26 0.015 260); }
 .term-child {
   font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-size: 13px;
   color: var(--ink-faint);
   padding-left: 11px;
   border-left: 1px solid oklch(0.88 0.03 var(--hue-terminology));
@@ -764,7 +764,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   gap: 32px;
   flex-wrap: wrap;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--ink-faint);
