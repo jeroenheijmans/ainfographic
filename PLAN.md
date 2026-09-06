@@ -47,19 +47,32 @@ Tried swapping `body`/`.page` to pure white and `.poster` to the old `--paper` v
 Landed instead: `.poster` background forced to `#fff` in `@media print` only (it previously kept `--card`'s oklch(0.99 0.004 90) tint even in print, which read as beige on a printed/PDF page even though `html, body` were already forced to `#fff`).
 Screen appearance is unchanged; only the print/PDF output changed.
 
-### 3. Responsiveness pass
+### 3. Responsiveness pass — DONE
 
-Baseline is better than expected: `css/style.css` already has ~15 `@media` breakpoints, and a live check at 420px and 1500px in a running `localhost:3000` showed single-column stacking, header wrapping, and footer wrapping all working correctly already.
+Human operator's standing breakpoint vocabulary for all future responsive work: **tiny** (<640px), **medium** (<1024px), **large** (<1440px), **xlarge** (≥1440px) — don't introduce ad-hoc breakpoints outside this set for new work.
 
-**Real bug found while checking this** (unrelated to shrinking, present at both 700px and 1500px): in `.lab-grid` / `.provider-grid`, cards are laid out in rows (flexbox/grid), and every card in a row stretches to match the *tallest* card in that row.
-A lab with 1-2 models (e.g. SpaceXAI, Microsoft, Meta) sitting next to a lab with 8 models (e.g. Anthropic, OpenAI) ends up with a large empty space at the bottom of the short card.
-This happens at every width, not just narrow ones — worth fixing as part of this pass since it's the most visually obvious layout defect found.
-Likely fix: `align-items: start` (or a masonry-style layout) so each card sizes to its own content instead of its row's tallest sibling.
+First pass fixed the row-stretch bug with `align-items: flex-start` on `.lab-grid`/`.provider-grid` (flex, default `stretch`). Visual review rejected the ragged result ("unequally high boxes") and flagged that flex's `flex: 0 1 25%` + `min-width: 220px` combo still produced 3-per-row layouts with large dangling whitespace at medium widths (e.g. 1023px) since `flex-grow: 0` leaves leftover row space unused.
 
-Remaining verification (not yet checked, do during this milestone):
-- Mid-range widths (480px, 600px, 900px, 1024px, 1200px) for: provider grid, tools grid, terminology multi-column text (`columns: 3/2/1` breakpoints at 1100/800/500px), initiatives card grid, title-block stacking point.
-- No horizontal scrollbar/overflow at any width from ~320px up.
-- Confirm behavior doesn't regress once #2's background swap and #9's type scale land (do this pass after both, or re-check after).
+Landed instead: `.lab-grid` and `.provider-grid` converted from flex to **CSS Grid** with `grid-template-columns` keyed to the breakpoints above — 4 columns at large/xlarge, 2 at medium, 1 at tiny (full-ish width).
+Removed the now-unneeded `flex`/`min-width` from `.lab-card`/`.provider-card` — grid's default `align-items: stretch` gives every card in a row equal (full) height for free, and equal 1fr columns eliminate the dangling-whitespace bug entirely (no `align-items: flex-start` needed anymore).
+
+Also fixed, found during the width sweep: `.sdk-chip` had `white-space: nowrap`, forcing the Wire Protocol layer's long descriptive chip onto one line and overflowing the viewport at every width up to ~900px.
+Replaced with `max-width: 100%` (drop `nowrap`) so long chip content wraps instead of overflowing.
+
+Also fixed, per visual review: `.title-side` ("Compiled by" / edition block) was flipping to a side-by-side row at ≤760px, which put "Edition" beside "Compiled by" instead of underneath it on small screens.
+Added a tiny-only (≤640px) override forcing it back to a stacked column.
+
+Verified via a scripted width sweep (320 through 1600px, including 640/1024/1440 boundaries): zero `scrollWidth` overflow at every width.
+Screenshotted labs grid and provider grid at tiny (420px), medium (1023px), and large/xlarge (1600px) — clean N-column layouts, equal row heights, no dangling whitespace at any tier.
+
+Also fixed, per visual review: `.page`'s padding (`40px 20px 80px`, i.e. asymmetric top/bottom) was carried unchanged into every breakpoint below xlarge.
+Added an override for everything under xlarge (`max-width: 1439px`) so `.page` gets a plain `20px` on all four sides instead; the original `40px 20px 80px` now only applies at xlarge (≥1440px).
+
+### Secondary models toggle removed
+
+Per human operator during visual review (2026-09-06): removed the "Show/hide secondary models" toggle in Labs & Models; secondary models are now always shown.
+Removed `js/sections/labs.js`'s toggle button/handler, `.labs-toggle` CSS, the `.lab-chips--secondary { display: none }` hiding rule (and its now-dead print override), and the "hidden by default" sentence from the section intro copy.
+**Flagged, not changed**: `DATA.md` § "Labs and Models" still documents "secondary models... hidden by default until the user decides to show them too" — this now contradicts the implementation and needs a matching update from the human operator (data/content, not touched here per AGENTS.md).
 
 ### 4. "Rendered at" timestamp
 
@@ -145,6 +158,6 @@ Recorded design decisions (tiny lightweight alternative to ADR's):
 - **Rendering**: hand-written vanilla JS render functions per section (no generic templating engine) generating HTML/inline SVG.
   Each section's visualization is bespoke per PLAN.md, so a generic template engine added indirection without reducing code.
 - **Color**: categorical palette and roles follow the `dataviz` skill's validated default palette (`references/palette.md`), light-mode slots only.
-- **Secondary models**: hidden by default behind a toggle in Labs & Models (DATA.md's own instruction, not the Claude Design mockup's static preview default), always forced visible in `@media print` since a printed sheet has no interactivity.
+- **Secondary models**: always shown in Labs & Models (no toggle) — changed 2026-09-06 per human operator during visual review; DATA.md § "Labs and Models" still documents the old "hidden until the user decides to show them" behavior and needs a matching update, flagged for the human operator rather than edited unilaterally.
 - **Labs/provider grid layout**: flexbox with per-card borders, not CSS-grid-with-background-gap, because the grid-gap trick leaves a solid placeholder box in the last row whenever a group's item count isn't a multiple of the column count (e.g. Europe's single Mistral card).
   See backlog #3 above for a related but distinct row-height defect.

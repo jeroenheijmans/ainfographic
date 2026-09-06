@@ -59,17 +59,6 @@
     const data = window.DATA.labs;
     const wrap = el("div", { class: "labs-wrap" });
 
-    const toggle = el("button", { class: "labs-toggle", type: "button", "aria-pressed": "false" },
-      "Show secondary models");
-    let open = false;
-    toggle.addEventListener("click", () => {
-      open = !open;
-      wrap.classList.toggle("labs-wrap--open", open);
-      toggle.setAttribute("aria-pressed", String(open));
-      toggle.textContent = open ? "Hide secondary models" : "Show secondary models";
-    });
-
-    wrap.appendChild(toggle);
     data.regions.forEach((region, i) => wrap.appendChild(renderRegion(region, i)));
 
     wrap.appendChild(el("div", { class: "lab-addendum" }, [
@@ -84,7 +73,7 @@
   window.SECTIONS.push({
     id: "labs-and-models",
     title: "Labs & Models",
-    intro: "Frontier and near-frontier labs, grouped by geography. Each lab lists the model families it is best known for. Secondary models are hidden by default — toggle to reveal.",
+    intro: "Frontier and near-frontier labs, grouped by geography. Each lab lists the model families it is best known for.",
     render
   });
 })();

@@ -65,6 +65,9 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   justify-content: center;
   padding: 40px 20px 80px;
 }
+@media (max-width: 1439px) {
+  .page { padding: 20px; }
+}
 
 .poster {
   width: var(--content-max);
@@ -164,6 +167,11 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   .title-side { border-left: none; padding-left: 0; border-top: 1px solid var(--hairline-strong); padding-top: 24px; flex-direction: row; justify-content: space-between; }
 }
 
+/* Tiny: keep "Compiled by" stacked above "Edition" instead of side-by-side. */
+@media (max-width: 640px) {
+  .title-side { flex-direction: column; justify-content: flex-start; }
+}
+
 /* ---------- Panels (shared chrome) ---------- */
 
 .panel {
@@ -237,21 +245,6 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 
 /* ---------- 01 Labs & Models ---------- */
 
-.labs-toggle {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  background: var(--card-tint);
-  border: 1px dashed var(--hairline-strong);
-  border-radius: 999px;
-  padding: 6px 14px;
-  cursor: pointer;
-  margin-bottom: 18px;
-}
-.labs-toggle:hover { color: var(--ink); border-color: var(--ink); }
-
 .lab-region { margin-bottom: 22px; }
 
 .lab-region-head {
@@ -281,17 +274,23 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 
 .lab-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 1024px) {
+  .lab-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .lab-grid { grid-template-columns: 1fr; }
 }
 
 /* Every card borders itself on all four sides — unlike relying on the grid
    container's edge for the last column's right border, this stays correct
    however many cards end up in a row (e.g. a region with just one lab, or a
-   trailing partial row), since it never depends on a row being fully filled. */
+   trailing partial row), since it never depends on a row being fully filled.
+   Cards are grid items (not flex), so they stretch to full row height by
+   default — no per-card sizing needed. */
 .lab-card {
-  flex: 0 1 25%;
-  min-width: 220px;
   background: var(--card);
   border: 1px solid var(--hairline);
   padding: 13px 15px 15px;
@@ -348,9 +347,6 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   color: oklch(0.38 0.02 260);
 }
 .lab-chip-mark { font-size: 8px; opacity: .8; margin-left: 2px; }
-
-.lab-chips--secondary { display: none; }
-.labs-wrap--open .lab-chips--secondary { display: flex; }
 
 .lab-footnote {
   font-size: 10.5px;
@@ -427,17 +423,22 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 .host-chip--ellipsis { opacity: .6; }
 
 .provider-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 14px;
 }
+@media (max-width: 1024px) {
+  .provider-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .provider-grid { grid-template-columns: 1fr; }
+}
 /* Self-bordered on all sides for the same reason as .lab-card: correct
-   regardless of how many cards land in the final row. */
+   regardless of how many cards land in the final row. Cards are grid items
+   (not flex), so they stretch to full row height by default. */
 .provider-card {
-  flex: 0 1 20%;
-  min-width: 220px;
   background: var(--card);
   border: 1px solid var(--hairline);
   padding: 12px 14px 14px;
@@ -653,7 +654,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   font-family: var(--font-mono);
   font-size: 11px;
   color: oklch(0.3 0.05 var(--hue-sdk));
-  white-space: nowrap;
+  max-width: 100%;
 }
 
 @media (max-width: 700px) {
@@ -801,11 +802,6 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   .poster { box-shadow: none; border: none; background: #fff; }
 
   .panel { opacity: 1 !important; transform: none !important; transition: none !important; }
-
-  /* Secondary models must always be visible in print, regardless of the
-     on-screen toggle state — a printed reference sheet has no interactivity. */
-  .lab-chips--secondary { display: flex !important; }
-  .labs-toggle { display: none; }
 
   .panel { break-inside: avoid; page-break-inside: avoid; }
   .lab-region { break-inside: avoid; }
