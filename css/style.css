@@ -148,7 +148,8 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   grid-template-columns: minmax(0, 1fr) 380px;
   gap: 40px;
   padding: 44px 56px 32px;
-  border-bottom: 3px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  background: var(--card-tint);
 }
 
 .eyebrow, .kicker {
@@ -865,7 +866,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 /* ---------- Colophon ---------- */
 
 .colophon {
-  border-top: 3px solid var(--ink);
+  border-top: 2px solid var(--ink);
   padding: 22px 56px 26px;
   display: flex;
   align-items: baseline;
@@ -876,6 +877,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--ink-faint);
+  background: var(--card-tint);
 }
 .colophon-title { font-weight: 600; color: var(--ink); }
 .colophon .spacer { flex: 1; }
