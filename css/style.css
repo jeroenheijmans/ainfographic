@@ -798,7 +798,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   }
 
   .page { padding: 0; }
-  .poster { box-shadow: none; border: none; }
+  .poster { box-shadow: none; border: none; background: #fff; }
 
   .panel { opacity: 1 !important; transform: none !important; transition: none !important; }
 

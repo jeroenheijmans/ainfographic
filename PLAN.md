@@ -42,14 +42,10 @@ The nine former `data/*.js` files were merged into one `js/data.js` (content unc
 
 ### 2. Invert background
 
-Confirmed with the human operator: outer page becomes pure white (`oklch(1 0 0)`), poster keeps its current on-screen drop-shadow/border (print already strips those).
-Currently `--paper` (oklch(0.93 ...), warm grey) is the `body`/`.page` background and `--card` (oklch(0.99 ..., near-white) is the `.poster` background *and* every inner card's background — i.e. cards currently blend flush into the poster.
+Tried swapping `body`/`.page` to pure white and `.poster` to the old `--paper` value; human operator rejected the result on screen ("looks ugly"), reverted.
 
-- Swap: `body`/`.page` background → new pure-white token (e.g. `--page-bg: oklch(1 0 0)`); `.poster` background → today's `--paper` value.
-- Leave `--card`/`--card-tint` (inner cards, chips, tinted zones) as-is — at oklch(0.99) they'll now sit *lighter* than the poster's oklch(0.93) background, which should read as cards floating on the poster (an improvement over today's flush blend, not just a swap).
-- Re-check every section's accent tints (`--card-tint`, the per-section hue washes like `.tools-panel` at oklch(0.97), `.inference-panel` at oklch(0.96)) still have enough contrast against the new darker poster background — those values were tuned against the old near-white poster.
-- Re-verify print: printed output should now be near-identical to screen (poster background was already closer to paper-white in spirit; confirm the `@media print` overrides don't need adjusting).
-- Screenshot both screen (desktop + mobile) and a `page.pdf()` export before committing.
+Landed instead: `.poster` background forced to `#fff` in `@media print` only (it previously kept `--card`'s oklch(0.99 0.004 90) tint even in print, which read as beige on a printed/PDF page even though `html, body` were already forced to `#fff`).
+Screen appearance is unchanged; only the print/PDF output changed.
 
 ### 3. Responsiveness pass
 
