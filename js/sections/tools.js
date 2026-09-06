@@ -14,8 +14,7 @@
   function renderCategory(cat) {
     return el("div", { class: "tool-row" }, [
       el("div", { class: "tool-cat" }, [
-        el("span", { class: "tool-cat-name", text: cat.name }),
-        el("span", { class: "tool-cat-tally", text: String(cat.tools.length).padStart(2, "0") })
+        el("span", { class: "tool-cat-name", text: cat.name })
       ]),
       el("div", { class: "tool-chips" }, cat.tools.map(renderTool))
     ]);

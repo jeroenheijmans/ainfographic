@@ -62,8 +62,10 @@
   function buildPanel(section, index) {
     const panel = el("section", { class: "panel panel--" + section.id, id: section.id });
     const head = el("div", { class: "panel-head" }, [
-      el("span", { class: "panel-num", text: String(index + 1).padStart(2, "0") }),
-      el("h2", { text: section.title }),
+      el("a", { class: "panel-head-link", href: "#" + section.id }, [
+        el("span", { class: "panel-num", text: String(index + 1).padStart(2, "0") }),
+        el("h2", { text: section.title })
+      ]),
       el("span", { class: "panel-rule" })
     ]);
     const body = el("div", { class: "panel-body" });

@@ -242,6 +242,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 .panel {
   padding: 40px 56px 44px;
   border-top: 2px solid oklch(0.58 0.16 var(--accent, 250));
+  scroll-margin-top: 24px;
 }
 .panel--labs-and-models {
   border-top: none;
@@ -253,6 +254,15 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   gap: 18px;
   margin-bottom: 6px;
 }
+
+.panel-head-link {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  color: inherit;
+  text-decoration: none;
+}
+.panel-head-link:hover h2 { text-decoration: underline; }
 
 .panel-num {
   font-family: var(--font-mono);
@@ -614,8 +624,6 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   text-transform: uppercase;
   color: oklch(0.4 0.11 var(--hue-tools));
 }
-.tool-cat-tally { font-family: var(--font-mono); font-size: 11.5px; color: oklch(0.68 0.02 260); }
-
 .tool-chips { display: flex; flex-wrap: wrap; gap: 7px; }
 .tool-chip {
   display: inline-flex;
@@ -662,7 +670,14 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 .feature-footnote { font-size: 12.5px; font-style: italic; line-height: 1.4; color: var(--ink-faint); text-wrap: pretty; }
 
 @media (max-width: 760px) {
-  .feature-row { grid-template-columns: 1fr; gap: 4px; }
+  .feature-row {
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "num term" "body body";
+    gap: 4px 10px;
+  }
+  .feature-num { grid-area: num; }
+  .feature-term { grid-area: term; }
+  .feature-body { grid-area: body; }
 }
 
 /* ---------- 05 Local Inference ---------- */
@@ -894,6 +909,14 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 @media (max-width: 640px) {
   .title-block, .panel { padding-left: 22px; padding-right: 22px; }
   .colophon { padding-left: 22px; padding-right: 22px; }
+}
+
+/* ---------- Tiniest viewport ---------- */
+
+@media (max-width: 400px) {
+  .page { padding: 5px; }
+  .title-block { padding-top: 10px; }
+  .lab-card { min-height: 0; }
 }
 
 /* ---------- Print ---------- */
