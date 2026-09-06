@@ -18,8 +18,8 @@ window.DATA.logoFileExtensions = {
 };
 
 /* Labs and Models — graph data for the mind-map section.
-   Source: DATA.md § "Labs and Models". Content is human-authored; do not
-   change facts here without coordinating with the human operator. */
+   Content is human-authored; do not change facts here without
+   coordinating with the human operator. */
 window.DATA.labs = {
   root: "Providers & Models",
   regions: [
@@ -85,7 +85,7 @@ window.DATA.labs = {
   ]
 };
 
-/* Inference Providers. Source: DATA.md § "Inference Providers". */
+/* Inference Providers. */
 window.DATA.inference = {
   hyperscalers: [
     { name: "Amazon", key: "amazon", label: "Bedrock",
@@ -123,7 +123,7 @@ window.DATA.inference = {
   ]
 };
 
-/* Development Tools. Source: DATA.md § "Development Tools". */
+/* Development Tools. */
 window.DATA.tools = {
   categories: [
     { name: "CLI Tools", tools: [
@@ -176,7 +176,7 @@ window.DATA.tools = {
   ]
 };
 
-/* Tooling Features. Source: DATA.md § "Tooling Features". */
+/* Tooling Features. */
 window.DATA.features = {
   terms: [
     { term: "Context", def: "All the tokens that are included when next tokens are generated, up to the maximum size (Context Window)." },
@@ -191,7 +191,7 @@ window.DATA.features = {
   ]
 };
 
-/* Local Inference. Source: DATA.md § "Local Inference". */
+/* Local Inference. */
 window.DATA.local = {
   notes: [
     "Requires “open-weight”, downloadable models.",
@@ -206,7 +206,7 @@ window.DATA.local = {
   ]
 };
 
-/* SDK & Application Layer. Source: DATA.md § "SDK & Application Layer". */
+/* SDK & Application Layer. */
 window.DATA.sdk = {
   layers: [
     { name: "Wire Protocol", items: ["OpenAI-compatible Chat Completions and Responses API, the de facto interop standard"] },
@@ -217,7 +217,7 @@ window.DATA.sdk = {
   ]
 };
 
-/* Security and Failure Modes. Source: DATA.md § "Security and Fialure Modes". */
+/* Security and Failure Modes. */
 window.DATA.security = {
   angles: [
     { term: "Prompt Injection", def: "untrusted input interpreted as instructions, either direct (from user) or indirect (on fetched external sources)." },
@@ -236,7 +236,7 @@ window.DATA.security = {
   ]
 };
 
-/* Terminology and Theory. Source: DATA.md § "Terminology and Theory". */
+/* Terminology and Theory. */
 window.DATA.terminology = {
   tree: [
     { name: "Foundations", children: [
@@ -295,7 +295,7 @@ window.DATA.terminology = {
   ]
 };
 
-/* Initiatives & Experiments. Source: DATA.md § "Initiatives & Experiments". */
+/* Initiatives & Experiments. */
 window.DATA.initiatives = {
   items: [
     { name: "Dolt", def: "SQL database with git-style versioning used for AI agent state persistence." },

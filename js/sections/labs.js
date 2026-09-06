@@ -37,10 +37,10 @@
 
   const REGION_HUES = [250, 148, 28, 205, 325, 72];
 
-  // Display-only relabeling: DATA.md groups these by continent, but every
-  // lab currently listed under "North America"/"Asia" is US/China respectively,
-  // so the section header names the actual countries. The underlying data
-  // (region.name, used for DATA.md fidelity elsewhere) is left untouched.
+  // Display-only relabeling: window.DATA.labs groups these by continent, but
+  // every lab currently listed under "North America"/"Asia" is US/China
+  // respectively, so the section header names the actual countries. The
+  // underlying region.name is left untouched.
   const REGION_LABELS = { "North America": "US", "Asia": "China" };
   function regionLabel(name) { return REGION_LABELS[name] || name; }
 
