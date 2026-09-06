@@ -337,9 +337,19 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   text-transform: uppercase;
 }
 
+/* The grid itself carries the border/background instead of each card: a
+   1px gap on that background reads as hairlines between cards, and the
+   border always wraps the actual occupied rows/columns — including a
+   trailing partial row (e.g. a region with just one lab) — since it's the
+   container's edge, not a sum of per-card edges. */
 .lab-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
 }
 @media (max-width: 1024px) {
   .lab-grid { grid-template-columns: repeat(2, 1fr); }
@@ -348,19 +358,28 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   .lab-grid { grid-template-columns: 1fr; }
 }
 
-/* Every card borders itself on all four sides — unlike relying on the grid
-   container's edge for the last column's right border, this stays correct
-   however many cards end up in a row (e.g. a region with just one lab, or a
-   trailing partial row), since it never depends on a row being fully filled.
-   Cards are grid items (not flex), so they stretch to full row height by
-   default — no per-card sizing needed. */
 .lab-card {
   background: var(--card);
-  border: 1px solid var(--hairline);
   padding: 13px 15px 15px;
+  min-height: 192px;
   display: flex;
   flex-direction: column;
   gap: 9px;
+}
+
+/* Ghost cells pad a region's trailing row out to a full row, so the empty
+   space reads as tint rather than bare hairline color — while still getting
+   a hairline on every side from the grid's own gap technique. Column count
+   changes per breakpoint, so each region carries filler counts for both the
+   4-col and 2-col cases; .lab-card-filler--keep-2col marks the subset still
+   needed once the grid drops to 2 columns (1-col never needs any, since
+   every card already fills its own row). */
+.lab-card-filler { background: var(--card-tint); }
+@media (max-width: 1024px) {
+  .lab-card-filler:not(.lab-card-filler--keep-2col) { display: none; }
+}
+@media (max-width: 640px) {
+  .lab-card-filler { display: none; }
 }
 
 .lab-card-head {
@@ -497,9 +516,15 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 .host-chip--ellipsis { opacity: .6; }
 
+/* Grid carries the border/background instead of each card — see .lab-grid
+   for why: a 1px gap on that background reads as hairlines between cards,
+   with no double-width seams. */
 .provider-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 14px;
@@ -510,12 +535,8 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 @media (max-width: 640px) {
   .provider-grid { grid-template-columns: 1fr; }
 }
-/* Self-bordered on all sides for the same reason as .lab-card: correct
-   regardless of how many cards land in the final row. Cards are grid items
-   (not flex), so they stretch to full row height by default. */
 .provider-card {
   background: var(--card);
-  border: 1px solid var(--hairline);
   padding: 12px 14px 14px;
   display: flex;
   flex-direction: column;

@@ -44,6 +44,22 @@
   const REGION_LABELS = { "North America": "US", "Asia": "China" };
   function regionLabel(name) { return REGION_LABELS[name] || name; }
 
+  // Pads a region's trailing row with ghost cells so leftover grid space
+  // reads as tint rather than bare hairline color (see .lab-card-filler in
+  // style.css). Needed-per-breakpoint differs since the grid runs 4/2/1
+  // columns; 1-col never needs padding, since every card is already a full
+  // row there.
+  function labFillers(count) {
+    const fillers4 = (4 - (count % 4)) % 4;
+    const fillers2 = (2 - (count % 2)) % 2;
+    const cells = [];
+    for (let f = 0; f < fillers4; f++) {
+      const keep2col = f >= fillers4 - fillers2;
+      cells.push(el("div", { class: "lab-card-filler" + (keep2col ? " lab-card-filler--keep-2col" : "") }));
+    }
+    return cells;
+  }
+
   function renderRegion(region, i) {
     const tally = region.labs.length + (region.labs.length === 1 ? " lab shown" : " labs shown");
     const hue = REGION_HUES[i % REGION_HUES.length];
@@ -52,7 +68,7 @@
         el("span", { class: "lab-region-name", text: regionLabel(region.name) }),
         el("span", { class: "lab-region-tally", text: tally })
       ]),
-      el("div", { class: "lab-grid" }, region.labs.map(renderLabCard))
+      el("div", { class: "lab-grid" }, region.labs.map(renderLabCard).concat(labFillers(region.labs.length)))
     ]);
   }
 
