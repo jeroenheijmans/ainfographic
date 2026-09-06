@@ -34,18 +34,11 @@ Data sits in [/data](/data).
 Items in suggested work order.
 If reasonable put the entire backlog item in one change set, pause for human review before committing.
 
-### 1. Script loading
+### 1. Script loading — DONE
 
-All nine `data/*.js` files, `js/app.js`, and all nine `js/sections/*.js` are loaded as plain blocking `<script src>` tags, in a strict order two of which are hard dependencies.
-`js/app.js` must execute before any `js/sections/*.js` (they destructure `window.AppKit.el` at top-level IIFE scope, not lazily).
-`window.DATA.*` must exist before `init()` runs (it currently does, since `init()` is deferred to `DOMContentLoaded`, which fires after all synchronous scripts have executed).
-
-- Add `defer` to every `<script src>` tag in `index.html`.
-  `defer` preserves document order (so the `app.js`-before-`sections` dependency still holds) while letting the browser fetch all scripts in parallel instead of one at a time, and doesn't block HTML parsing.
-- Optionally consider `type="module"`: ES modules are blocked by CORS under `file://` in Chromium/Firefox, but needing that has been dropped from the requirements a short while ago.
-- There are no CDN-hosted scripts to worry about — the only external network requests today are the two Google Fonts `<link>` tags, addressed in #6.
-- Verify with a hard-refresh + view-source that section order in the rendered page is unchanged.
-- After writing the above, changed my mind on one thing: let's merge all data `.js` files into one `/js/data.js` file.
+All `<script src>` tags in `index.html` now carry `defer` (data, app, and all section scripts).
+Order preserved: `js/data.js`, then `js/app.js`, then the nine `js/sections/*.js`, so the `app.js`-before-`sections` and `DATA`-before-`init()` dependencies still hold.
+The nine former `data/*.js` files were merged into one `js/data.js` (content unchanged, just concatenated); the `data/` directory was removed.
 
 ### 2. Invert background
 
@@ -106,7 +99,7 @@ Implementation (once files exist):
 
 Confirmed with the human operator: content under **CC BY-SA 4.0**, code (HTML/CSS/JS in this repo) under a separate permissive license — **MIT**.
 
-- Add a top-level `LICENSE` file (MIT, for the code) and either a `LICENSE-CONTENT` file or a clearly-labelled section in `README.md` for the CC BY-SA 4.0 content license (data in `data/*.js`/`DATA.md`, the rendered infographic itself).
+- Add a top-level `LICENSE` file (MIT, for the code) and either a `LICENSE-CONTENT` file or a clearly-labelled section in `README.md` for the CC BY-SA 4.0 content license (data in `js/data.js`/`DATA.md`, the rendered infographic itself).
 - Add a short disclaimer near the license notice (colophon footer is the natural spot, or README) making clear: (a) this work is licensed CC BY-SA 4.0 — adaptations must attribute and are not endorsed by the original author; (b) company/product names referenced are trademarks of their respective owners; (c) any logos added (see #8) are used under their respective owners' guidelines/licenses, not covered by this repo's license.
 - Draft the exact wording and put it up for human review before committing — this is legal-adjacent text, don't invent final copy unilaterally even though the license choice itself is now confirmed.
 - Decide whether the colophon footer needs a visible license line (e.g. "CC BY-SA 4.0 · trademarks belong to their owners") or whether a link/footnote to a fuller README section is enough given how tight the footer already is.
@@ -115,14 +108,14 @@ Confirmed with the human operator: content under **CC BY-SA 4.0**, code (HTML/CS
 
 Confirmed with the human operator: vendor/company logos only (not per-product) in the Development Tools section (03) — same decision applies naturally to Labs (01, already company-level) and Inference Providers (02, mostly company-level already).
 
-**Data format change** (allowed — AGENTS.md permits form changes, not content changes): add a `key` field per lab/provider/tool-vendor in `data/*.js` (kebab-case slug, e.g. `"openai"`, `"z-ai"`), used to look up `logos/<key>.png` (or `.svg`).
-This does not change any human-readable content, only adds a lookup field — should be safe to do without flagging as a content change, but call it out explicitly in the commit message anyway since it touches every entry in three data files.
+**Data format change** (allowed — AGENTS.md permits form changes, not content changes): add a `key` field per lab/provider/tool-vendor in `js/data.js` (kebab-case slug, e.g. `"openai"`, `"z-ai"`), used to look up `logos/<key>.png` (or `.svg`).
+This does not change any human-readable content, only adds a lookup field — should be safe to do without flagging as a content change, but call it out explicitly in the commit message anyway since it touches every entry in three data sections.
 
 - Render an `<img>` per card/chip when a `key` is present, `loading="lazy"`, small fixed square size (e.g. 20-24px), with an `onerror` handler that hides the broken image (`this.style.display='none'` or toggle a `hidden` attribute) so a missing logo file degrades to today's text-only look, not a broken-image icon.
 - Ship a couple of inline placeholder SVGs (e.g. a simple monogram/square) as the initial `logos/*.png` content so the layout can be reviewed before real logos exist, per PLAN's existing "tiny SVGs as placeholders" guidance.
-- Consider a small `scripts/list-logo-keys.js` (run with plain `node`, not a build step) that walks `data/*.js` and prints every unique `key` currently referenced — keeps the "logos still needed" list in sync with data forever, instead of a hand-written list that goes stale the next time DATA.md grows.
+- Consider a small `scripts/list-logo-keys.js` (run with plain `node`, not a build step) that walks `js/data.js` and prints every unique `key` currently referenced — keeps the "logos still needed" list in sync with data forever, instead of a hand-written list that goes stale the next time DATA.md grows.
 
-**Logo checklist for the human operator to source** (generated from current `data/*.js`, vendor-level per the decision above — this list *will* go stale as data changes, regenerate via the script above once it exists):
+**Logo checklist for the human operator to source** (generated from current `js/data.js`, vendor-level per the decision above — this list *will* go stale as data changes, regenerate via the script above once it exists):
 
 Labs / companies (also covers most of Inference Providers' hyperscalers):
 SpaceXAI, Anthropic, Google, OpenAI, Microsoft, Amazon, Meta, NVIDIA, Mistral, Alibaba, DeepSeek, MiniMax, Z.ai, Moonshot, Xiaomi.
@@ -151,7 +144,7 @@ Suggested approach for whichever session picks this up:
 Recorded design decisions (tiny lightweight alternative to ADR's):
 
 - **Style**: single fixed-width (1440px max) poster card, based on a Claude Design mockup — Barlow Condensed (headers) + IBM Plex Sans (body) + IBM Plex Mono (labels), oklch color tokens per section, one light theme, no dark mode (prints beautifully without color-scheme overrides).
-- **Data loading**: data lives in `data/*.js` as plain object literals assigned to `window.DATA.<section>` (JSON-shaped, human-editable), loaded via `<script src>` tags rather than `fetch()`.
+- **Data loading**: data lives in `js/data.js` as plain object literals assigned to `window.DATA.<section>` (JSON-shaped, human-editable), loaded via a `<script src defer>` tag rather than `fetch()`.
   This is required for the "open index.html directly via file://" constraint — `fetch()` of local JSON is blocked by CORS under `file://` in most browsers, but `<script src>` is not.
 - **Rendering**: hand-written vanilla JS render functions per section (no generic templating engine) generating HTML/inline SVG.
   Each section's visualization is bespoke per PLAN.md, so a generic template engine added indirection without reducing code.
