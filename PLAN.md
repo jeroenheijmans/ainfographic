@@ -34,20 +34,6 @@ Data sits in [/data](/data).
 Items in suggested work order.
 If reasonable put the entire backlog item in one change set, pause for human review before committing.
 
-### "Rendered at" timestamp
-
-`js/app.js` currently sets `"Edition " + new Date().toISOString().slice(0, 7).replace("-", ".")` (e.g. "Edition 2026.09") into `#edition` and `#colophon-edition`.
-
-- Relabel to "Rendered at", format as an ISO-8601 UTC timestamp to the minute (e.g. `2026-09-05 18:24 UTC`) — `new Date().toISOString().slice(0, 16)` gives `2026-09-05T18:24`, swap the `T` for a space and append `UTC`.
-- This is dynamic per page-load, not per "edition" of the data anymore — consider whether the `#counts` line (labs/model-family totals) should move or stay put now that "edition" framing is gone.
-  Not a blocker, just note the copy no longer says "edition" anywhere so make sure nothing else references that word.
-- Style: reuse the existing mono label treatment (`--font-mono`, the current `.edition` CSS class) rather than inventing new styling; just adjust for the longer string.
-
-### External link target
-
-Two links point to `https://jeroenheijmans.nl` (`.byline` in the title block, and the colophon footer link).
-Add `target="_blank" rel="noopener noreferrer"` to both.
-
 ### Self-host fonts
 
 Confirmed with the human operator: separate `.woff2` files in a new `fonts/` directory, referenced via relative `@font-face url()` paths (works under `file://` since it's a same-origin relative path, unlike `fetch()`).
@@ -121,3 +107,5 @@ Recorded design decisions (tiny lightweight alternative to ADR's):
 - **Secondary models**: always shown in Labs & Models (no toggle) — changed 2026-09-06 per human operator during visual review; DATA.md § "Labs and Models" still documents the old "hidden until the user decides to show them" behavior and needs a matching update, flagged for the human operator rather than edited unilaterally.
 - **Labs/provider grid layout**: flexbox with per-card borders, not CSS-grid-with-background-gap, because the grid-gap trick leaves a solid placeholder box in the last row whenever a group's item count isn't a multiple of the column count (e.g. Europe's single Mistral card).
   See backlog #3 above for a related but distinct row-height defect.
+- **"Rendered at" timestamp**: replaced "Edition" label with a per-page-load `Rendered at YYYY-MM-DD HH:MM UTC` string (2026-09-06); `.edition` CSS class switched from the large Barlow Condensed display treatment to the small `--font-mono` label treatment (matches `.counts`/`.colophon`) since the longer string didn't fit the old display size.
+  `#counts` (labs/model-family totals) kept in place under it, not moved — no strong reason surfaced to relocate it.

@@ -80,9 +80,9 @@
       main.appendChild(buildPanel(section, i));
     });
 
-    const edition = "Edition " + new Date().toISOString().slice(0, 7).replace("-", ".");
-    document.getElementById("edition").textContent = edition;
-    document.getElementById("colophon-edition").textContent = edition;
+    const renderedAt = "Rendered at " + new Date().toISOString().slice(0, 16).replace("T", " ") + " UTC";
+    document.getElementById("edition").textContent = renderedAt;
+    document.getElementById("colophon-edition").textContent = renderedAt;
 
     const { labCount, modelCount } = computeCounts();
     document.getElementById("counts").textContent =
