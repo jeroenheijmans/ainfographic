@@ -29,7 +29,7 @@
   window.SECTIONS.push({
     id: "development-tools",
     title: "Development Tools & Harnesses",
-    intro: "Grouped by how you use them, not by who makes them. Several products appear in more than one row.",
+    intro: "Grouped by how you use them, not by who makes them. Several products or suites appear in more than one row.",
     render
   });
 })();

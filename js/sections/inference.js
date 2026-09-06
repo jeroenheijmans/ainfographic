@@ -57,7 +57,7 @@
   window.SECTIONS.push({
     id: "inference-providers",
     title: "Inference Providers",
-    intro: "Every major lab serves its own models. Listed here are the providers that host several labs' models. Indicative, not exhaustive — a trailing ellipsis means a long tail.",
+    intro: "Every major lab serves its own models. Listed here are the providers that host several labs' models. Indicative, not exhaustive — a trailing ellipsis means a long tail. Hyperscalers come first, highlighted.",
     render
   });
 })();

@@ -17,7 +17,7 @@
   window.SECTIONS.push({
     id: "initiatives-and-experiments",
     title: "Initiatives & Experiments",
-    intro: "Strange and wonderful things at the edge. None of these is load-bearing yet; all of them come up in conversation.",
+    intro: "Strange and wonderful things at the edge. Stuff that might pop up at the lunch table, but isn't everyday stuff for most developers... for now.",
     render
   });
 })();

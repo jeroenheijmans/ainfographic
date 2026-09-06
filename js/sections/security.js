@@ -33,7 +33,7 @@
   window.SECTIONS.push({
     id: "security-and-failure-modes",
     title: "Security & Failure Modes",
-    intro: "LLMs and agents blur the line between data and instructions. Risks on the left, the cheap defences on the right.",
+    intro: "LLMs and agents blur the line between data and instructions. Risks on the left, defenses on the right.",
     render
   });
 })();

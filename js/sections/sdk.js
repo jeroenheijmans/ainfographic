@@ -23,7 +23,7 @@
   window.SECTIONS.push({
     id: "sdk-application-layer",
     title: "SDK & Application Layer",
-    intro: "Read bottom-up: the wire protocol is the floor, everything above it is convenience.",
+    intro: "Various parts involved in setting up tooling in a more customized fashion.",
     render
   });
 })();

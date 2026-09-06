@@ -22,7 +22,7 @@
   window.SECTIONS.push({
     id: "tooling-features",
     title: "Tooling Features",
-    intro: "The concepts that recur across LLMs and agent harnesses. Names differ per vendor; the ideas do not.",
+    intro: "The concepts used across LLMs and agent harnesses. Names might differ per vendor; the ideas do not.",
     render
   });
 })();
