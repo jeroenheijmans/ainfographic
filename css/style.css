@@ -240,9 +240,11 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 
 .panel {
   padding: 40px 56px 44px;
-  border-bottom: 1px solid var(--hairline-soft);
+  border-top: 2px solid oklch(0.58 0.16 var(--accent, 250));
 }
-.panel:last-of-type { border-bottom: none; }
+.panel--labs-and-models {
+  border-top: none;
+}
 
 .panel-head {
   display: flex;
@@ -298,6 +300,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 .panel--tooling-features { --accent: var(--hue-features); }
 .panel--local-inference { --accent: var(--hue-local); }
 .panel--sdk-application-layer { --accent: var(--hue-sdk); }
+.panel--security-and-failure-modes { --accent: var(--hue-security-risk); }
 .panel--security-and-failure-modes .panel-rule {
   background: linear-gradient(90deg, oklch(0.58 0.17 var(--hue-security-risk)), oklch(0.55 0.14 var(--hue-security-mitigation)));
 }
