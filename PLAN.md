@@ -34,47 +34,7 @@ Data sits in [/data](/data).
 Items in suggested work order.
 If reasonable put the entire backlog item in one change set, pause for human review before committing.
 
-### 1. Script loading — DONE
-
-All `<script src>` tags in `index.html` now carry `defer` (data, app, and all section scripts).
-Order preserved: `js/data.js`, then `js/app.js`, then the nine `js/sections/*.js`, so the `app.js`-before-`sections` and `DATA`-before-`init()` dependencies still hold.
-The nine former `data/*.js` files were merged into one `js/data.js` (content unchanged, just concatenated); the `data/` directory was removed.
-
-### 2. Invert background
-
-Tried swapping `body`/`.page` to pure white and `.poster` to the old `--paper` value; human operator rejected the result on screen ("looks ugly"), reverted.
-
-Landed instead: `.poster` background forced to `#fff` in `@media print` only (it previously kept `--card`'s oklch(0.99 0.004 90) tint even in print, which read as beige on a printed/PDF page even though `html, body` were already forced to `#fff`).
-Screen appearance is unchanged; only the print/PDF output changed.
-
-### 3. Responsiveness pass — DONE
-
-Human operator's standing breakpoint vocabulary for all future responsive work: **tiny** (<640px), **medium** (<1024px), **large** (<1440px), **xlarge** (≥1440px) — don't introduce ad-hoc breakpoints outside this set for new work.
-
-First pass fixed the row-stretch bug with `align-items: flex-start` on `.lab-grid`/`.provider-grid` (flex, default `stretch`). Visual review rejected the ragged result ("unequally high boxes") and flagged that flex's `flex: 0 1 25%` + `min-width: 220px` combo still produced 3-per-row layouts with large dangling whitespace at medium widths (e.g. 1023px) since `flex-grow: 0` leaves leftover row space unused.
-
-Landed instead: `.lab-grid` and `.provider-grid` converted from flex to **CSS Grid** with `grid-template-columns` keyed to the breakpoints above — 4 columns at large/xlarge, 2 at medium, 1 at tiny (full-ish width).
-Removed the now-unneeded `flex`/`min-width` from `.lab-card`/`.provider-card` — grid's default `align-items: stretch` gives every card in a row equal (full) height for free, and equal 1fr columns eliminate the dangling-whitespace bug entirely (no `align-items: flex-start` needed anymore).
-
-Also fixed, found during the width sweep: `.sdk-chip` had `white-space: nowrap`, forcing the Wire Protocol layer's long descriptive chip onto one line and overflowing the viewport at every width up to ~900px.
-Replaced with `max-width: 100%` (drop `nowrap`) so long chip content wraps instead of overflowing.
-
-Also fixed, per visual review: `.title-side` ("Compiled by" / edition block) was flipping to a side-by-side row at ≤760px, which put "Edition" beside "Compiled by" instead of underneath it on small screens.
-Added a tiny-only (≤640px) override forcing it back to a stacked column.
-
-Verified via a scripted width sweep (320 through 1600px, including 640/1024/1440 boundaries): zero `scrollWidth` overflow at every width.
-Screenshotted labs grid and provider grid at tiny (420px), medium (1023px), and large/xlarge (1600px) — clean N-column layouts, equal row heights, no dangling whitespace at any tier.
-
-Also fixed, per visual review: `.page`'s padding (`40px 20px 80px`, i.e. asymmetric top/bottom) was carried unchanged into every breakpoint below xlarge.
-Added an override for everything under xlarge (`max-width: 1439px`) so `.page` gets a plain `20px` on all four sides instead; the original `40px 20px 80px` now only applies at xlarge (≥1440px).
-
-### Secondary models toggle removed
-
-Per human operator during visual review (2026-09-06): removed the "Show/hide secondary models" toggle in Labs & Models; secondary models are now always shown.
-Removed `js/sections/labs.js`'s toggle button/handler, `.labs-toggle` CSS, the `.lab-chips--secondary { display: none }` hiding rule (and its now-dead print override), and the "hidden by default" sentence from the section intro copy.
-**Flagged, not changed**: `DATA.md` § "Labs and Models" still documents "secondary models... hidden by default until the user decides to show them too" — this now contradicts the implementation and needs a matching update from the human operator (data/content, not touched here per AGENTS.md).
-
-### 4. "Rendered at" timestamp
+### "Rendered at" timestamp
 
 `js/app.js` currently sets `"Edition " + new Date().toISOString().slice(0, 7).replace("-", ".")` (e.g. "Edition 2026.09") into `#edition` and `#colophon-edition`.
 
@@ -83,12 +43,12 @@ Removed `js/sections/labs.js`'s toggle button/handler, `.labs-toggle` CSS, the `
   Not a blocker, just note the copy no longer says "edition" anywhere so make sure nothing else references that word.
 - Style: reuse the existing mono label treatment (`--font-mono`, the current `.edition` CSS class) rather than inventing new styling; just adjust for the longer string.
 
-### 5. External link target
+### External link target
 
 Two links point to `https://jeroenheijmans.nl` (`.byline` in the title block, and the colophon footer link).
 Add `target="_blank" rel="noopener noreferrer"` to both.
 
-### 6. Self-host fonts
+### Self-host fonts
 
 Confirmed with the human operator: separate `.woff2` files in a new `fonts/` directory, referenced via relative `@font-face url()` paths (works under `file://` since it's a same-origin relative path, unlike `fetch()`).
 
@@ -104,7 +64,7 @@ Implementation (once files exist):
 - Remove the two Google Fonts `<link rel="preconnect">` tags and the `fonts.googleapis.com` stylesheet `<link>` from `index.html`.
 - Verify rendering is pixel-identical (or acceptably close) to the Google Fonts version, and that opening via `file://` still loads the fonts (no CORS issue expected for local relative paths, but confirm).
 
-### 7. License + trademark/logo disclaimer
+### License + trademark/logo disclaimer
 
 Confirmed with the human operator: content under **CC BY-SA 4.0**, code (HTML/CSS/JS in this repo) under a separate permissive license — **MIT**.
 
@@ -113,7 +73,7 @@ Confirmed with the human operator: content under **CC BY-SA 4.0**, code (HTML/CS
 - Draft the exact wording and put it up for human review before committing — this is legal-adjacent text, don't invent final copy unilaterally even though the license choice itself is now confirmed.
 - Decide whether the colophon footer needs a visible license line (e.g. "CC BY-SA 4.0 · trademarks belong to their owners") or whether a link/footnote to a fuller README section is enough given how tight the footer already is.
 
-### 8. Company/tool logos
+### Company/tool logos
 
 Confirmed with the human operator: vendor/company logos only (not per-product) in the Development Tools section (03) — same decision applies naturally to Labs (01, already company-level) and Inference Providers (02, mostly company-level already).
 
@@ -137,7 +97,7 @@ GitHub, JetBrains, Cline Bot Inc., Cognition, Zed Industries, ByteDance, Replit,
 
 Data oddity noted: Aider's vendor is "open source" (not a logo-able company — recommend no logo/placeholder for that one row, confirm with human operator).
 
-### 9. Type scale / accessibility pass
+### Type scale / accessibility pass
 
 Smallest text sizes today: 10px (several chip/meta labels), 10.5px (a few notes/footnotes), 11-11.5px (several more labels) — genuinely small for both low-vision and general legibility, especially on a dense reference poster.
 
