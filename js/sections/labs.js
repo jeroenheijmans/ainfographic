@@ -1,7 +1,7 @@
 /* Labs & Models — region-grouped grid of lab cards. */
 (function () {
   "use strict";
-  const { el, modelLabel, modelFootnote } = window.AppKit;
+  const { el, modelLabel, modelFootnote, logoImg } = window.AppKit;
 
   function chip(m, kind, footnotes) {
     const label = modelLabel(m);
@@ -24,6 +24,7 @@
       : null;
     const card = el("div", { class: "lab-card" }, [
       el("div", { class: "lab-card-head" }, [
+        logoImg(lab.key, lab.name),
         el("span", { class: "lab-name", text: lab.name }),
         el("span", { class: "lab-cc", text: lab.country })
       ]),

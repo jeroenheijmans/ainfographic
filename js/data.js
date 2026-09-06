@@ -1,33 +1,47 @@
+window.DATA = window.DATA || {};
+
+/* Logo file extension exceptions, keyed by logo `key`/`vendorKey`. A key
+   not listed here is assumed to be logos/<key>.svg; list it here (value
+   "png") when a vendor only provides a PNG. */
+window.DATA.logoFileExtensions = {
+  aider: "png",
+  alibaba: "png",
+  cloudflare: "png",
+  google: "png",
+  litellm: "png",
+  minimax: "png",
+  mistral: "png",
+};
+
 /* Labs and Models — graph data for the mind-map section.
    Source: DATA.md § "Labs and Models". Content is human-authored; do not
    change facts here without coordinating with the human operator. */
-window.DATA = window.DATA || {};
 window.DATA.labs = {
   root: "Providers & Models",
   regions: [
     {
       name: "North America",
       labs: [
-        { name: "SpaceXAI", country: "US",
+        { name: "SpaceXAI", key: "spacexai", country: "US",
           main: ["Grok"],
           secondary: ["Imagine", "Voice"] },
-        { name: "Anthropic", country: "US",
+        { name: "Anthropic", key: "anthropic", country: "US",
           main: ["Claude Haiku", "Claude Sonnet", "Claude Opus", "Claude Fable",
                  { name: "Claude Mythos", footnote: "Not publicly available." }] },
-        { name: "Google", country: "US",
+        { name: "Google", key: "google", country: "US",
           main: ["Gemini Flash", "Gemini Pro", "Gemma"],
           secondary: ["Imagen", "Veo", "Chirp"] },
-        { name: "OpenAI", country: "US",
+        { name: "OpenAI", key: "openai", country: "US",
           main: ["GPT Astra", "GPT Sol", "GPT Luna", "GPT Terra", "gpt-oss"],
           secondary: ["GPT Codex", "GPT nano", "GPT mini", "Sora", "GPT Image"] },
-        { name: "Microsoft", country: "US",
+        { name: "Microsoft", key: "microsoft", country: "US",
           main: ["Phi"] },
-        { name: "Amazon", country: "US",
+        { name: "Amazon", key: "amazon", country: "US",
           main: ["Nova Micro", "Nova Lite", "Nova Pro", "Nova Premier"],
           secondary: ["Nova Canvas", "Nova Reel", "Nova Sonic"] },
-        { name: "Meta", country: "US",
+        { name: "Meta", key: "meta", country: "US",
           main: ["Llama"] },
-        { name: "NVIDIA", country: "US",
+        { name: "NVIDIA", key: "nvidia", country: "US",
           main: ["Nemotron Nano", "Nemotron Super", "Nemotron Ultra"],
           secondary: ["Nemotron Speech"] }
       ]
@@ -35,7 +49,7 @@ window.DATA.labs = {
     {
       name: "Europe",
       labs: [
-        { name: "Mistral", country: "FR",
+        { name: "Mistral", key: "mistral", country: "FR",
           main: ["Ministral", "Mistral Small", "Mistral Medium", "Mistral Large", "Devstral", "Magistral"],
           secondary: ["Voxtral", "OCR"] }
       ]
@@ -43,18 +57,18 @@ window.DATA.labs = {
     {
       name: "Asia",
       labs: [
-        { name: "Alibaba", country: "CN",
+        { name: "Alibaba", key: "alibaba", country: "CN",
           main: ["Qwen", "Qwen-Coder"],
           secondary: ["Qwen-VL", "Qwen-Audio", "Qwen-Omni"] },
-        { name: "DeepSeek", country: "CN",
+        { name: "DeepSeek", key: "deepseek", country: "CN",
           main: ["DeepSeek Flash", "DeepSeek Pro"] },
-        { name: "MiniMax", country: "CN",
+        { name: "MiniMax", key: "minimax", country: "CN",
           main: ["MiniMax"] },
-        { name: "Z.ai", country: "CN",
+        { name: "Z.ai", key: "z-ai", country: "CN",
           main: ["GLM"] },
-        { name: "Moonshot", country: "CN",
+        { name: "Moonshot", key: "moonshot", country: "CN",
           main: ["Kimi"] },
-        { name: "Xiaomi", country: "CN",
+        { name: "Xiaomi", key: "xiaomi", country: "CN",
           main: ["MiMo Flash", "MiMo Pro", "MiMo Omni"] }
       ]
     }
@@ -70,38 +84,38 @@ window.DATA.labs = {
 /* Inference Providers. Source: DATA.md § "Inference Providers". */
 window.DATA.inference = {
   hyperscalers: [
-    { name: "Amazon", label: "Bedrock",
+    { name: "Amazon", key: "amazon", label: "Bedrock",
       hosts: ["Nova", "Anthropic", "gpt-oss", "gemma", "Llama", "Qwen", "DeepSeek", "MiniMax", "Kimi", "Nemotron", "Mistral"],
       longTail: true },
-    { name: "Microsoft", label: "Azure Foundry",
+    { name: "Microsoft", key: "microsoft", label: "Azure Foundry",
       hosts: ["OpenAI", "Anthropic", "Cohere", "Llama", "Phi", "Mistral", "Grok", "DeepSeek"],
       longTail: true },
-    { name: "Google", label: "Vertex",
+    { name: "Google", key: "google", label: "Vertex",
       hosts: ["Gemini", "Anthropic", "Llama", "Qwen", "GLM", "DeepSeek"],
       longTail: true }
   ],
   providers: [
-    { name: "Cloudflare Workers AI",
+    { name: "Cloudflare Workers AI", key: "cloudflare",
       hosts: ["gpt-oss", "gemma", "Llama", "Nemotron", "Kimi", "GLM", "Qwen", "DeepSeek", "Mistral"],
       longTail: true },
-    { name: "Groq", hosts: ["Llama", "gpt-oss", "Qwen", "Kimi"] },
-    { name: "Cerebras", hosts: ["gpt-oss", "Llama", "Qwen", "GLM"] },
-    { name: "Fireworks AI",
+    { name: "Groq", key: "groq", hosts: ["Llama", "gpt-oss", "Qwen", "Kimi"] },
+    { name: "Cerebras", key: "cerebras", hosts: ["gpt-oss", "Llama", "Qwen", "GLM"] },
+    { name: "Fireworks AI", key: "fireworks-ai",
       hosts: ["gpt-oss", "gemma", "Llama", "Qwen", "GLM", "Kimi", "DeepSeek", "MiniMax", "Mistral"],
       longTail: true },
-    { name: "Together AI",
+    { name: "Together AI", key: "together-ai",
       hosts: ["gpt-oss", "gemma", "Nemotron", "Qwen", "MiniMax", "GLM", "Kimi", "Mistral"],
       longTail: true },
-    { name: "DeepInfra",
+    { name: "DeepInfra", key: "deepinfra",
       hosts: ["Qwen", "MiniMax", "GLM", "Kimi", "Nemotron", "DeepSeek"],
       longTail: true },
-    { name: "SiliconFlow", hosts: ["MiniMax", "GLM", "Kimi", "DeepSeek", "Qwen"] },
-    { name: "Hugging Face Inference Endpoints", hosts: [], note: "Bring your own." }
+    { name: "SiliconFlow", key: "siliconflow", hosts: ["MiniMax", "GLM", "Kimi", "DeepSeek", "Qwen"] },
+    { name: "Hugging Face Inference Endpoints", key: "hugging-face", hosts: [], note: "Bring your own." }
   ],
   routers: [
-    { name: "OpenRouter", hosts: [], note: "Nearly all models from all labs." },
-    { name: "LiteLLM", hosts: [], note: "Nearly all models from all labs." },
-    { name: "OpenCode Zen", hosts: ["OpenAI", "Anthropic", "Gemini", "Grok", "Qwen", "MiniMax", "GLM", "Mistral"] }
+    { name: "OpenRouter", key: "openrouter", hosts: [], note: "Nearly all models from all labs." },
+    { name: "LiteLLM", key: "litellm", hosts: [], note: "Nearly all models from all labs." },
+    { name: "OpenCode Zen", key: "opencode-zen", hosts: ["OpenAI", "Anthropic", "Gemini", "Grok", "Qwen", "MiniMax", "GLM", "Mistral"] }
   ]
 };
 
@@ -109,51 +123,51 @@ window.DATA.inference = {
 window.DATA.tools = {
   categories: [
     { name: "CLI Tools", tools: [
-      { name: "Codex", vendor: "OpenAI" },
-      { name: "Claude Code", vendor: "Anthropic" },
-      { name: "Antigravity", vendor: "Google" },
-      { name: "Copilot", vendor: "GitHub" },
-      { name: "Vibe", vendor: "Mistral" },
-      { name: "OpenCode", vendor: "Anomaly" },
-      { name: "Aider", vendor: "open source" }
+      { name: "Codex", vendor: "OpenAI", vendorKey: "openai" },
+      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic" },
+      { name: "Antigravity", vendor: "Google", vendorKey: "google" },
+      { name: "Copilot", vendor: "GitHub", vendorKey: "github" },
+      { name: "Vibe", vendor: "Mistral", vendorKey: "mistral" },
+      { name: "OpenCode", vendor: "Anomaly", vendorKey: "anomaly" },
+      { name: "Aider", vendor: "open source", vendorKey: "aider" }
     ]},
     { name: "IDE Extensions", tools: [
-      { name: "Codex", vendor: "OpenAI" },
-      { name: "Claude Code", vendor: "Anthropic" },
-      { name: "Copilot", vendor: "GitHub" },
-      { name: "Vibe", vendor: "Mistral" },
-      { name: "Junie", vendor: "JetBrains" },
-      { name: "Q Developer", vendor: "Amazon" },
-      { name: "Cline", vendor: "Cline Bot Inc." }
+      { name: "Codex", vendor: "OpenAI", vendorKey: "openai" },
+      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic" },
+      { name: "Copilot", vendor: "GitHub", vendorKey: "github" },
+      { name: "Vibe", vendor: "Mistral", vendorKey: "mistral" },
+      { name: "Junie", vendor: "JetBrains", vendorKey: "jetbrains" },
+      { name: "Q Developer", vendor: "Amazon", vendorKey: "amazon" },
+      { name: "Cline", vendor: "Cline Bot Inc.", vendorKey: "cline-bot-inc" }
     ]},
     { name: "IDEs", tools: [
-      { name: "Cursor", vendor: "SpaceXAI" },
-      { name: "Antigravity", vendor: "Google" },
-      { name: "Kiro", vendor: "Amazon" },
-      { name: "Windsurf", vendor: "Cognition" },
-      { name: "Zed", vendor: "Zed Industries" },
-      { name: "Trae", vendor: "ByteDance" },
-      { name: "Qoder", vendor: "Alibaba" }
+      { name: "Cursor", vendor: "SpaceXAI", vendorKey: "spacexai" },
+      { name: "Antigravity", vendor: "Google", vendorKey: "google" },
+      { name: "Kiro", vendor: "Amazon", vendorKey: "amazon" },
+      { name: "Windsurf", vendor: "Cognition", vendorKey: "cognition" },
+      { name: "Zed", vendor: "Zed Industries", vendorKey: "zed-industries" },
+      { name: "Trae", vendor: "ByteDance", vendorKey: "bytedance" },
+      { name: "Qoder", vendor: "Alibaba", vendorKey: "alibaba" }
     ]},
     { name: "Standalone GUI", tools: [
-      { name: "Codex", vendor: "OpenAI" },
-      { name: "Claude", vendor: "Anthropic" }
+      { name: "Codex", vendor: "OpenAI", vendorKey: "openai" },
+      { name: "Claude", vendor: "Anthropic", vendorKey: "anthropic" }
     ]},
     { name: "SaaS Tools", tools: [
-      { name: "Codex", vendor: "OpenAI" },
-      { name: "Claude Code", vendor: "Anthropic" },
-      { name: "Copilot", vendor: "GitHub" },
-      { name: "Devin", vendor: "Cognition" }
+      { name: "Codex", vendor: "OpenAI", vendorKey: "openai" },
+      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic" },
+      { name: "Copilot", vendor: "GitHub", vendorKey: "github" },
+      { name: "Devin", vendor: "Cognition", vendorKey: "cognition" }
     ]},
     { name: "Browser Dev Tools", tools: [
-      { name: "Replit", vendor: "Replit" },
-      { name: "AI Studio", vendor: "Google" }
+      { name: "Replit", vendor: "Replit", vendorKey: "replit" },
+      { name: "AI Studio", vendor: "Google", vendorKey: "google" }
     ]},
     { name: "Browser App Builders", tools: [
-      { name: "Bolt.new", vendor: "StackBlitz" },
-      { name: "Lovable", vendor: "Lovable" },
-      { name: "Base44", vendor: "Wix" },
-      { name: "v0", vendor: "Vercel" }
+      { name: "Bolt.new", vendor: "StackBlitz", vendorKey: "stackblitz" },
+      { name: "Lovable", vendor: "Lovable", vendorKey: "lovable" },
+      { name: "Base44", vendor: "Wix", vendorKey: "wix" },
+      { name: "v0", vendor: "Vercel", vendorKey: "vercel" }
     ]}
   ]
 };

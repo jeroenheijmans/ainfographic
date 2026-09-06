@@ -1,7 +1,7 @@
 /* Inference Providers — hyperscalers, providers grid, routers row. */
 (function () {
   "use strict";
-  const { el } = window.AppKit;
+  const { el, logoImg } = window.AppKit;
 
   function hostChip(h) { return el("span", { class: "host-chip", text: h }); }
   function longTailChips(list, longTail) {
@@ -13,6 +13,7 @@
   function renderHyperscaler(p) {
     return el("div", { class: "hyperscaler-card" }, [
       el("div", { class: "hyperscaler-head" }, [
+        logoImg(p.key, p.name),
         el("span", { class: "hyperscaler-name", text: p.name }),
         el("span", { class: "hyperscaler-product", text: p.label })
       ]),
@@ -22,7 +23,10 @@
 
   function renderProvider(p) {
     return el("div", { class: "provider-card" }, [
-      el("div", { class: "provider-name", text: p.name }),
+      el("div", { class: "provider-head" }, [
+        logoImg(p.key, p.name),
+        el("span", { class: "provider-name", text: p.name })
+      ]),
       el("div", { class: "host-chips" }, longTailChips(p.hosts, p.longTail)),
       p.note ? el("div", { class: "provider-note", text: p.note }) : null
     ]);
@@ -30,7 +34,10 @@
 
   function renderRouter(r) {
     return el("div", { class: "router-item" }, [
-      el("span", { class: "router-name", text: r.name }),
+      el("div", { class: "router-item-head" }, [
+        logoImg(r.key, r.name),
+        el("span", { class: "router-name", text: r.name })
+      ]),
       el("span", { class: "router-hosts", text: r.note || r.hosts.join(", ") })
     ]);
   }

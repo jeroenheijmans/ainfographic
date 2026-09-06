@@ -33,7 +33,26 @@
   function modelLabel(m) { return typeof m === "string" ? m : m.name; }
   function modelFootnote(m) { return typeof m === "string" ? null : m.footnote; }
 
-  window.AppKit = { el, modelLabel, modelFootnote };
+  // Renders a small vendor/company logo when a data entry has a `key`.
+  // A missing file swaps to a shared neutral placeholder (logos/_fallback.svg)
+  // so every entry keeps the same visual slot until its real logo is added;
+  // if even that fails to load, the slot hides itself instead of showing a
+  // broken-image icon.
+  function logoImg(key, alt) {
+    if (!key) return null;
+    const ext = (window.DATA.logoFileExtensions && window.DATA.logoFileExtensions[key]) || "svg";
+    const img = el("img", {
+      class: "vendor-logo",
+      src: "logos/" + key + "." + ext,
+      alt: "",
+      title: alt || "",
+      loading: "lazy",
+      onerror: "if (this.dataset.fallback) { this.style.display='none'; } else { this.dataset.fallback = '1'; this.src = 'logos/_fallback.svg'; }"
+    });
+    return img;
+  }
+
+  window.AppKit = { el, modelLabel, modelFootnote, logoImg };
 
   // ---------------------------------------------------------------------
   // Section registry — filled in by js/sections/*.js (each pushes here).

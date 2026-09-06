@@ -365,7 +365,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 
 .lab-card-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
   border-bottom: 1px solid var(--card-tint);
   padding-bottom: 7px;
@@ -412,6 +412,16 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 .lab-chip-mark { font-size: 9px; opacity: .8; margin-left: 2px; }
 
+/* Vendor/company logo, shown when a data entry has a `key`. A missing file
+   is hidden via onerror (js/app.js logoImg), degrading to the pre-existing
+   text-only look rather than a broken-image icon. */
+.vendor-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 .lab-footnote {
   font-size: 12px;
   font-style: italic;
@@ -456,7 +466,8 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   flex-direction: column;
   gap: 10px;
 }
-.hyperscaler-head { display: flex; align-items: baseline; gap: 9px; }
+.hyperscaler-head { display: flex; align-items: center; gap: 9px; }
+.hyperscaler-head .vendor-logo { opacity: .85; }
 .hyperscaler-name {
   font-family: var(--font-display);
   font-weight: 600;
@@ -510,14 +521,19 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   flex-direction: column;
   gap: 8px;
 }
+.provider-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--card-tint);
+  padding-bottom: 6px;
+}
 .provider-name {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 19px;
   line-height: 1.05;
   text-transform: uppercase;
-  border-bottom: 1px solid var(--card-tint);
-  padding-bottom: 6px;
 }
 .provider-note { font-size: 12px; font-style: italic; color: var(--ink-faint); }
 
@@ -541,6 +557,8 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 .router-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .router-item { display: flex; flex-direction: column; gap: 5px; }
+.router-item-head { display: flex; align-items: center; gap: 6px; }
+.router-item-head .vendor-logo { width: 15px; height: 15px; }
 .router-name { font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
 .router-hosts { font-size: 13px; color: var(--ink-muted); line-height: 1.35; }
 
@@ -576,7 +594,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 .tool-chips { display: flex; flex-wrap: wrap; gap: 7px; }
 .tool-chip {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: 6px;
   padding: 5px 11px;
   border-radius: 4px;
@@ -584,6 +602,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   border: 1px solid oklch(0.87 0.05 var(--hue-tools));
   white-space: nowrap;
 }
+.tool-chip .vendor-logo { width: 15px; height: 15px; }
 .tool-name { font-size: 13px; font-weight: 600; color: oklch(0.28 0.04 var(--hue-tools)); }
 .tool-vendor { font-family: var(--font-mono); font-size: 11.5px; color: oklch(0.5 0.05 var(--hue-tools)); }
 

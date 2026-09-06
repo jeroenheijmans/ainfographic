@@ -34,39 +34,6 @@ Data sits in [/data](/data).
 Items in suggested work order.
 If reasonable put the entire backlog item in one change set, pause for human review before committing.
 
-### License + trademark/logo disclaimer
-
-Confirmed with the human operator: content under **CC BY-SA 4.0**, code (HTML/CSS/JS in this repo) under a separate permissive license — **MIT**.
-
-- Add a top-level `LICENSE` file (MIT, for the code) and either a `LICENSE-CONTENT` file or a clearly-labelled section in `README.md` for the CC BY-SA 4.0 content license (data in `js/data.js`/`DATA.md`, the rendered infographic itself).
-- Add a short disclaimer near the license notice (colophon footer is the natural spot, or README) making clear: (a) this work is licensed CC BY-SA 4.0 — adaptations must attribute and are not endorsed by the original author; (b) company/product names referenced are trademarks of their respective owners; (c) any logos added (see #8) are used under their respective owners' guidelines/licenses, not covered by this repo's license.
-- Draft the exact wording and put it up for human review before committing — this is legal-adjacent text, don't invent final copy unilaterally even though the license choice itself is now confirmed.
-- Decide whether the colophon footer needs a visible license line (e.g. "CC BY-SA 4.0 · trademarks belong to their owners") or whether a link/footnote to a fuller README section is enough given how tight the footer already is.
-
-### Company/tool logos
-
-Confirmed with the human operator: vendor/company logos only (not per-product) in the Development Tools section (03) — same decision applies naturally to Labs (01, already company-level) and Inference Providers (02, mostly company-level already).
-
-**Data format change** (allowed — AGENTS.md permits form changes, not content changes): add a `key` field per lab/provider/tool-vendor in `js/data.js` (kebab-case slug, e.g. `"openai"`, `"z-ai"`), used to look up `logos/<key>.png` (or `.svg`).
-This does not change any human-readable content, only adds a lookup field — should be safe to do without flagging as a content change, but call it out explicitly in the commit message anyway since it touches every entry in three data sections.
-
-- Render an `<img>` per card/chip when a `key` is present, `loading="lazy"`, small fixed square size (e.g. 20-24px), with an `onerror` handler that hides the broken image (`this.style.display='none'` or toggle a `hidden` attribute) so a missing logo file degrades to today's text-only look, not a broken-image icon.
-- Ship a couple of inline placeholder SVGs (e.g. a simple monogram/square) as the initial `logos/*.png` content so the layout can be reviewed before real logos exist, per PLAN's existing "tiny SVGs as placeholders" guidance.
-- Consider a small `scripts/list-logo-keys.js` (run with plain `node`, not a build step) that walks `js/data.js` and prints every unique `key` currently referenced — keeps the "logos still needed" list in sync with data forever, instead of a hand-written list that goes stale the next time DATA.md grows.
-
-**Logo checklist for the human operator to source** (generated from current `js/data.js`, vendor-level per the decision above — this list *will* go stale as data changes, regenerate via the script above once it exists):
-
-Labs / companies (also covers most of Inference Providers' hyperscalers):
-SpaceXAI, Anthropic, Google, OpenAI, Microsoft, Amazon, Meta, NVIDIA, Mistral, Alibaba, DeepSeek, MiniMax, Z.ai, Moonshot, Xiaomi.
-
-Additional inference providers/routers (not already labs):
-Cloudflare (Workers AI), Groq, Cerebras, Fireworks AI, Together AI, DeepInfra, SiliconFlow, Hugging Face, OpenRouter, LiteLLM, OpenCode Zen.
-
-Additional dev-tool vendors (not already labs):
-GitHub, JetBrains, Cline Bot Inc., Cognition, Zed Industries, ByteDance, Replit, StackBlitz, Lovable, Wix, Vercel, Anomaly.
-
-Data oddity noted: Aider's vendor is "open source" (not a logo-able company — recommend no logo/placeholder for that one row, confirm with human operator).
-
 ## Design decisions
 
 Recorded design decisions (tiny lightweight alternative to ADR's):

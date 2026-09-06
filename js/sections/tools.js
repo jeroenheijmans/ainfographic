@@ -1,10 +1,11 @@
 /* Development Tools & Harnesses — one row per usage category. */
 (function () {
   "use strict";
-  const { el } = window.AppKit;
+  const { el, logoImg } = window.AppKit;
 
   function renderTool(t) {
     return el("span", { class: "tool-chip" }, [
+      logoImg(t.vendorKey, t.vendor),
       el("span", { class: "tool-name", text: t.name }),
       el("span", { class: "tool-vendor", text: t.vendor })
     ]);
