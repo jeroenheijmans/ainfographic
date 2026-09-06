@@ -13,151 +13,149 @@ The end result will be a dynamic Infographic repository.
 Constraints:
 
 1. This repository should be deployable to GitHub pages as is - no build pipeline.
-2. It should also be easily viewable on a local machine, either by opening an `index.html` directly or with a lightweight `npx serve .` command.
-3. There should be near-zero dependencies, only zero or a tiny number of (version-pinned) cdnjs dependencies are acceptable. Great reasons to choose a dependency after all include: (1) a tiny templating engine to keep sections data-driven, (2) a tool to make things beautiful (but do also remember to use modern CSS where possible).
-4. A simple setup is strongly preferred, either one `index.html` file with everything or three files (html, css, js).
-5. Use tiny SVG's as placeholders if you want logo's for 
-5. It should be absolutely beautiful: one single specific style (light or dark, either is fine) and stick with it. Bespoke and unique, but functional.
+2. It should also be easily viewable on a local machine, with a lightweight `npx serve .` command.
+3. There should be near-zero dependencies, only zero or a tiny number of (version-pinned) cdnjs dependencies are acceptable.
+   Great reasons to choose a dependency after all include: (1) a tiny templating engine to keep sections data-driven, (2) a tool to make things beautiful (but do also remember to use modern CSS where possible).
+4. A simple setup is strongly preferred, with as few files as possible.
+5. It should be absolutely beautiful: one single specific style (light mode). Bespoke and unique, but functional.
 6. The user printing or exporting to PDF should get a great experience: turning this infographic into a custom huge poster print (A1 for example) should be trivial.
 7. Progressive tweaks for screen media (like subtle animations, parallax effects, background animations) are allowed if they don't interfere with print.
 8. Things should be data-driven. Adding new entries to data (see below) in the future should automatically update the infographic. Ideally a human tweaking some data in GitHub web editors should be feasible.
 9. Never manipulate data contents, only form might be tweaked. New or updated data comes from human operators always. If the data or its format are problematic: consult your human operator.
 10. Data should be in a structured format like yml, json, or otherwise: something both good for humans and editability, and for using for our data-driven approach.
 
-Each section may have its own sub-style or format.
-For inspiration: grids, venn diagrams, sankey, mind maps, charts, circle packing, sunburst, treemaps, heat maps, magic quadrants, edge bundling, word clouds, and just text and beautiful tables or grids are great too.
-
 ## Data
 
-Data starts in [DATA.md](./DATA.md).
-Each section contains:
+Data sits in [/data](/data).
+**Rule for `.js` files there: never silently fix typos or reword definitions, even obvious ones — flag them to the human operator instead.**
 
-- Some textual metadata that are "instructions" to help with choosing a visualization.
-- The actual data, that should be converted from semi-structured markdown, into our structured data format.
+## Backlog
 
-## To do
+Items in suggested work order.
+If reasonable put the entire backlog item in one change set, pause for human review before committing.
 
-This is the place for a cross-session implementation plan.
+### 1. Script loading
 
-Milestones:
+All nine `data/*.js` files, `js/app.js`, and all nine `js/sections/*.js` are loaded as plain blocking `<script src>` tags, in a strict order two of which are hard dependencies.
+`js/app.js` must execute before any `js/sections/*.js` (they destructure `window.AppKit.el` at top-level IIFE scope, not lazily).
+`window.DATA.*` must exist before `init()` runs (it currently does, since `init()` is deferred to `DOMContentLoaded`, which fires after all synchronous scripts have executed).
 
-1. [x] Scaffold: index.html, css/style.css design system, js/app.js skeleton, data/ dir
-2. [x] Data: convert DATA.md into data/*.js structured files (one per section)
-3. [x] Section: Labs and Models mind map
-4. [x] Section: Inference Providers grid
-5. [x] Section: Development Tools grid
-6. [x] Section: Tooling Features glossary
-7. [x] Section: Local Inference stack diagram
-8. [x] Section: SDK & Application Layer stack diagram
-9. [x] Section: Security and Failure Modes
-10. [x] Section: Terminology and Theory tree
-11. [x] Section: Initiatives & Experiments card grid
-12. [x] Print/poster CSS pass
-13. [x] Screen polish (animations, respecting prefers-reduced-motion)
-14. [x] Browser test pass + screenshots (Playwright, screen + print emulation, both verified)
+- Add `defer` to every `<script src>` tag in `index.html`.
+  `defer` preserves document order (so the `app.js`-before-`sections` dependency still holds) while letting the browser fetch all scripts in parallel instead of one at a time, and doesn't block HTML parsing.
+- Optionally consider `type="module"`: ES modules are blocked by CORS under `file://` in Chromium/Firefox, but needing that has been dropped from the requirements a short while ago.
+- There are no CDN-hosted scripts to worry about — the only external network requests today are the two Google Fonts `<link>` tags, addressed in #6.
+- Verify with a hard-refresh + view-source that section order in the rendered page is unchanged.
+- After writing the above, changed my mind on one thing: let's merge all data `.js` files into one `/js/data.js` file.
 
-First full build complete as of 2026-07-25, then adversarially reviewed by a
-fresh agent (no prior context) same day. Real bugs it found and that got fixed:
-secondary models in the Labs mind map were invisible in print unless manually
-expanded on screen first; footnote markers on model chips were all an
-indistinguishable `*` instead of numbered; and — confirmed via an actual
-`page.pdf()` export, not just print-media emulation — the Labs & Models
-section is taller than one printed page, so its SVG connector lines got
-sliced by the page break into disconnected stubs. Fixed by hiding connector
-lines in print (the colour-coded borders still show grouping) and forcing
-each region onto its own page via `break-before: page`.
+### 2. Invert background
 
-It also caught that three DATA.md typos ("Least Privilige", "defualt-deny",
-"netork") had been silently corrected in data/security.js and
-data/initiatives.js, and definitions in data/security.js had been
-re-capitalized/re-punctuated — both violate AGENTS.md's "never touch content
-without coordinating with the human operator." Reverted to verbatim DATA.md
-text. **If you're a future session touching data/*.js: do not silently fix
-typos or reword definitions, even obvious ones — flag them to the human
-operator instead.** The three known typos above are intentionally preserved
-verbatim in the data files.
+Confirmed with the human operator: outer page becomes pure white (`oklch(1 0 0)`), poster keeps its current on-screen drop-shadow/border (print already strips those).
+Currently `--paper` (oklch(0.93 ...), warm grey) is the `body`/`.page` background and `--card` (oklch(0.99 ..., near-white) is the `.poster` background *and* every inner card's background — i.e. cards currently blend flush into the poster.
 
-Remaining ideas for future sessions (not blocking, not yet done):
+- Swap: `body`/`.page` background → new pure-white token (e.g. `--page-bg: oklch(1 0 0)`); `.poster` background → today's `--paper` value.
+- Leave `--card`/`--card-tint` (inner cards, chips, tinted zones) as-is — at oklch(0.99) they'll now sit *lighter* than the poster's oklch(0.93) background, which should read as cards floating on the poster (an improvement over today's flush blend, not just a swap).
+- Re-check every section's accent tints (`--card-tint`, the per-section hue washes like `.tools-panel` at oklch(0.97), `.inference-panel` at oklch(0.96)) still have enough contrast against the new darker poster background — those values were tuned against the old near-white poster.
+- Re-verify print: printed output should now be near-identical to screen (poster background was already closer to paper-white in spirit; confirm the `@media print` overrides don't need adjusting).
+- Screenshot both screen (desktop + mobile) and a `page.pdf()` export before committing.
 
-- [ ] Consider a light/dark contrast check (WCAG) pass on the categorical chip
-      borders against `--paper-raised` — done by eye, not measured.
-- [ ] Consider small tiny-SVG lab logos as chip icons (optional per spec, skipped
-      for this pass in favor of consistent typographic chips).
-- [ ] Re-check mobile (<760px) layout in a real device/emulator; only checked via
-      CSS review, not rendered.
-- [ ] The DATA.md section heading "Security and Fialure Modes" (typo) is
-      rendered corrected as "Security and Failure Modes" in the UI — treated
-      as an authored section title, not itemized data, so left as-is. Worth
-      confirming with the human operator if that distinction feels wrong.
+### 3. Responsiveness pass
 
-If a future session picks this up: check the checkboxes above and `git log`
-for what's actually done, this list may lag slightly behind commits.
+Baseline is better than expected: `css/style.css` already has ~15 `@media` breakpoints, and a live check at 420px and 1500px in a running `localhost:3000` showed single-column stacking, header wrapping, and footer wrapping all working correctly already.
 
-## Redesign: "State of AI" poster (2026-09-05)
+**Real bug found while checking this** (unrelated to shrinking, present at both 700px and 1500px): in `.lab-grid` / `.provider-grid`, cards are laid out in rows (flexbox/grid), and every card in a row stretches to match the *tallest* card in that row.
+A lab with 1-2 models (e.g. SpaceXAI, Microsoft, Meta) sitting next to a lab with 8 models (e.g. Anthropic, OpenAI) ends up with a large empty space at the bottom of the short card.
+This happens at every width, not just narrow ones — worth fixing as part of this pass since it's the most visually obvious layout defect found.
+Likely fix: `align-items: start` (or a masonry-style layout) so each card sizes to its own content instead of its row's tallest sibling.
 
-The human operator ran a Claude Design session and produced a specific bespoke
-layout ("State of AI.dc.html", synced via the design MCP into
-claude.ai/design project `3feafbc1-eb2e-46f7-906b-1df79104ea31`) and asked for
-it to be implemented here, replacing the prior "editorial field guide"
-scrolling theme. This supersedes the style decisions below (scrolling panels,
-mind-map, TOC, serif display font) in favor of:
+Remaining verification (not yet checked, do during this milestone):
+- Mid-range widths (480px, 600px, 900px, 1024px, 1200px) for: provider grid, tools grid, terminology multi-column text (`columns: 3/2/1` breakpoints at 1100/800/500px), initiatives card grid, title-block stacking point.
+- No horizontal scrollbar/overflow at any width from ~320px up.
+- Confirm behavior doesn't regress once #2's background swap and #9's type scale land (do this pass after both, or re-check after).
 
-- A single fixed-width (1440px max) poster card, not a scrolling multi-panel
-  page — closer to a literal one-page infographic than a field guide.
-- Barlow Condensed (headers) + IBM Plex Sans (body) + IBM Plex Mono (labels),
-  via Google Fonts — oklch color tokens per section (each of the 9 sections
-  gets its own accent hue, matching the source design).
-- Labs & Models rendered as colour-banded region groups with a grid of lab
-  cards (chips for main/secondary models), not an SVG mind map/tree. Secondary
-  models are hidden by default with a single toggle — the design mockup's
-  static `showSecondary: true` prop was a preview default, not a UX spec;
-  DATA.md's own instruction ("hidden by default until the user decides to
-  show them") is the one that's authoritative and is what got implemented.
-- Reused the existing `data/*.js` structured files as-is (already
-  DATA.md-derived, human-editable, loaded via `<script src>` for `file://`
-  compatibility) — only synced content to match DATA.md's current edits, no
-  reshaping needed since the design's data shape and these files' shape are
-  close cousins.
-- Milestones: [x] title block, [x] labs&models grid, [x] inference providers,
-  [x] dev tools, [x] tooling features, [x] local inference, [x] SDK layer,
-  [x] security, [x] terminology, [x] initiatives, [x] colophon, [x] print pass,
-  [x] responsive pass, [x] browser test.
+### 4. "Rendered at" timestamp
 
-First pass complete 2026-09-05. Verified via Playwright: desktop (1500px) and
-mobile (390px) screenshots, the secondary-models toggle (default hidden per
-DATA.md's own instruction, not the design mockup's static preview default),
-and a real `page.pdf()` print export (not just print-media emulation) —
-10 letter-sized pages, secondary models correctly forced visible in print,
-known DATA.md typos ("defualt-deny", "Least Privilige", "netork") correctly
-preserved verbatim. One deviation from a literal copy of the source design:
-`.lab-grid`/`.provider-grid` use flexbox with per-card borders instead of the
-design's CSS-grid-with-background-gap trick, because that trick left a
-solid grey placeholder box in the last row whenever a group's item count
-wasn't a multiple of the column count (e.g. Europe's single Mistral card,
-Asia's 6-lab tail) — same defect the trick would have in the source mockup.
+`js/app.js` currently sets `"Edition " + new Date().toISOString().slice(0, 7).replace("-", ".")` (e.g. "Edition 2026.09") into `#edition` and `#colophon-edition`.
 
-Remaining ideas for a future session (not blocking):
-- [ ] Re-check the printed page count/whitespace on a non-Letter page size
-      (A3/A4) — only Letter was verified via `page.pdf()`.
-- [ ] Consider tiny inline-SVG lab logos as chip icons (still optional per
-      spec; skipped again in favor of consistent typographic chips).
-- [ ] WCAG contrast check on the categorical chip borders — done by eye only.
+- Relabel to "Rendered at", format as an ISO-8601 UTC timestamp to the minute (e.g. `2026-09-05 18:24 UTC`) — `new Date().toISOString().slice(0, 16)` gives `2026-09-05T18:24`, swap the `T` for a space and append `UTC`.
+- This is dynamic per page-load, not per "edition" of the data anymore — consider whether the `#counts` line (labs/model-family totals) should move or stay put now that "edition" framing is gone.
+  Not a blocker, just note the copy no longer says "edition" anywhere so make sure nothing else references that word.
+- Style: reuse the existing mono label treatment (`--font-mono`, the current `.edition` CSS class) rather than inventing new styling; just adjust for the longer string.
+
+### 5. External link target
+
+Two links point to `https://jeroenheijmans.nl` (`.byline` in the title block, and the colophon footer link).
+Add `target="_blank" rel="noopener noreferrer"` to both.
+
+### 6. Self-host fonts
+
+Confirmed with the human operator: separate `.woff2` files in a new `fonts/` directory, referenced via relative `@font-face url()` paths (works under `file://` since it's a same-origin relative path, unlike `fetch()`).
+
+All three families (Barlow Condensed, IBM Plex Sans, IBM Plex Mono) are Google Fonts, licensed under the SIL Open Font License (OFL) — embedding and redistribution is explicitly allowed, no attribution file legally required (though crediting in the colophon is a nice touch, optional).
+
+Weights actually used today (from the current Google Fonts `<link>` in `index.html`): Barlow Condensed 500/600/700, IBM Plex Sans 400/500/600, IBM Plex Mono 400/500/600 — 9 files total if downloading only static weights used.
+
+**Action for the human operator**: download the 9 `.woff2` files, e.g. via `google-webfonts-helper` (gwfh.mranftl.com/fonts) or Google Fonts' own per-family download + a woff2 converter, and drop them in a new `fonts/` folder using a predictable naming scheme (e.g. `barlow-condensed-600.woff2`).
+Can be done any time, independent of session ordering.
+
+Implementation (once files exist):
+- Add `@font-face` rules to `css/style.css` for all 9 files, `font-display: swap`.
+- Remove the two Google Fonts `<link rel="preconnect">` tags and the `fonts.googleapis.com` stylesheet `<link>` from `index.html`.
+- Verify rendering is pixel-identical (or acceptably close) to the Google Fonts version, and that opening via `file://` still loads the fonts (no CORS issue expected for local relative paths, but confirm).
+
+### 7. License + trademark/logo disclaimer
+
+Confirmed with the human operator: content under **CC BY-SA 4.0**, code (HTML/CSS/JS in this repo) under a separate permissive license — **MIT**.
+
+- Add a top-level `LICENSE` file (MIT, for the code) and either a `LICENSE-CONTENT` file or a clearly-labelled section in `README.md` for the CC BY-SA 4.0 content license (data in `data/*.js`/`DATA.md`, the rendered infographic itself).
+- Add a short disclaimer near the license notice (colophon footer is the natural spot, or README) making clear: (a) this work is licensed CC BY-SA 4.0 — adaptations must attribute and are not endorsed by the original author; (b) company/product names referenced are trademarks of their respective owners; (c) any logos added (see #8) are used under their respective owners' guidelines/licenses, not covered by this repo's license.
+- Draft the exact wording and put it up for human review before committing — this is legal-adjacent text, don't invent final copy unilaterally even though the license choice itself is now confirmed.
+- Decide whether the colophon footer needs a visible license line (e.g. "CC BY-SA 4.0 · trademarks belong to their owners") or whether a link/footnote to a fuller README section is enough given how tight the footer already is.
+
+### 8. Company/tool logos
+
+Confirmed with the human operator: vendor/company logos only (not per-product) in the Development Tools section (03) — same decision applies naturally to Labs (01, already company-level) and Inference Providers (02, mostly company-level already).
+
+**Data format change** (allowed — AGENTS.md permits form changes, not content changes): add a `key` field per lab/provider/tool-vendor in `data/*.js` (kebab-case slug, e.g. `"openai"`, `"z-ai"`), used to look up `logos/<key>.png` (or `.svg`).
+This does not change any human-readable content, only adds a lookup field — should be safe to do without flagging as a content change, but call it out explicitly in the commit message anyway since it touches every entry in three data files.
+
+- Render an `<img>` per card/chip when a `key` is present, `loading="lazy"`, small fixed square size (e.g. 20-24px), with an `onerror` handler that hides the broken image (`this.style.display='none'` or toggle a `hidden` attribute) so a missing logo file degrades to today's text-only look, not a broken-image icon.
+- Ship a couple of inline placeholder SVGs (e.g. a simple monogram/square) as the initial `logos/*.png` content so the layout can be reviewed before real logos exist, per PLAN's existing "tiny SVGs as placeholders" guidance.
+- Consider a small `scripts/list-logo-keys.js` (run with plain `node`, not a build step) that walks `data/*.js` and prints every unique `key` currently referenced — keeps the "logos still needed" list in sync with data forever, instead of a hand-written list that goes stale the next time DATA.md grows.
+
+**Logo checklist for the human operator to source** (generated from current `data/*.js`, vendor-level per the decision above — this list *will* go stale as data changes, regenerate via the script above once it exists):
+
+Labs / companies (also covers most of Inference Providers' hyperscalers):
+SpaceXAI, Anthropic, Google, OpenAI, Microsoft, Amazon, Meta, NVIDIA, Mistral, Alibaba, DeepSeek, MiniMax, Z.ai, Moonshot, Xiaomi.
+
+Additional inference providers/routers (not already labs):
+Cloudflare (Workers AI), Groq, Cerebras, Fireworks AI, Together AI, DeepInfra, SiliconFlow, Hugging Face, OpenRouter, LiteLLM, OpenCode Zen.
+
+Additional dev-tool vendors (not already labs):
+GitHub, JetBrains, Cline Bot Inc., Cognition, Zed Industries, ByteDance, Replit, StackBlitz, Lovable, Wix, Vercel, Anomaly.
+
+Data oddity noted: Aider's vendor is "open source" (not a logo-able company — recommend no logo/placeholder for that one row, confirm with human operator).
+
+### 9. Type scale / accessibility pass
+
+Smallest text sizes today: 10px (several chip/meta labels), 10.5px (a few notes/footnotes), 11-11.5px (several more labels) — genuinely small for both low-vision and general legibility, especially on a dense reference poster.
+
+This is explicitly **not a single-shot fix** — per the human operator, this needs iteration with visual review before committing.
+Suggested approach for whichever session picks this up:
+- Propose 1-2 revised type scales (e.g. raise the 10-10.5px tier to ~12px minimum, keep the ratio between tiers) and produce before/after screenshots of at least one dense section (Labs & Models or Terminology) at both screen and print sizes.
+- Print and screen may reasonably diverge here: print can tolerate smaller point sizes than screen since viewing distance differs, but a poster meant to be read on a wall (target result #6, A1-scale print) argues for *larger* minimums, not smaller — worth surfacing explicitly to the human operator rather than assuming.
+- Do this pass after #2 (background invert) and #3 (responsiveness/grid fix) land, so contrast and layout are being judged against the near-final visual base, not the current one.
+- Expect multiple review round-trips; do not commit until the human operator signs off on a specific scale.
 
 ## Design decisions
 
 Recorded design decisions (tiny lightweight alternative to ADR's):
 
-- **Style**: light "editorial field guide" theme — warm paper background, dark ink
-  text, no dark mode (single style per spec). Chosen because it prints beautifully
-  without color-scheme overrides, unlike a dark theme.
-- **Data loading**: data lives in `data/*.js` as plain object literals assigned to
-  `window.DATA.<section>` (JSON-shaped, human-editable), loaded via `<script src>`
-  tags rather than `fetch()`. This is required for the "open index.html directly
-  via file://" constraint — `fetch()` of local JSON is blocked by CORS under
-  `file://` in most browsers, but `<script src>` is not.
-- **Rendering**: hand-written vanilla JS render functions per section (no generic
-  templating engine) generating HTML/inline SVG. Each section's visualization is
-  bespoke per PLAN.md, so a generic template engine added indirection without
-  reducing code.
-- **Color**: categorical palette and roles follow the `dataviz` skill's validated
-  default palette (`references/palette.md`), light-mode slots only.
+- **Style**: single fixed-width (1440px max) poster card, based on a Claude Design mockup — Barlow Condensed (headers) + IBM Plex Sans (body) + IBM Plex Mono (labels), oklch color tokens per section, one light theme, no dark mode (prints beautifully without color-scheme overrides).
+- **Data loading**: data lives in `data/*.js` as plain object literals assigned to `window.DATA.<section>` (JSON-shaped, human-editable), loaded via `<script src>` tags rather than `fetch()`.
+  This is required for the "open index.html directly via file://" constraint — `fetch()` of local JSON is blocked by CORS under `file://` in most browsers, but `<script src>` is not.
+- **Rendering**: hand-written vanilla JS render functions per section (no generic templating engine) generating HTML/inline SVG.
+  Each section's visualization is bespoke per PLAN.md, so a generic template engine added indirection without reducing code.
+- **Color**: categorical palette and roles follow the `dataviz` skill's validated default palette (`references/palette.md`), light-mode slots only.
+- **Secondary models**: hidden by default behind a toggle in Labs & Models (DATA.md's own instruction, not the Claude Design mockup's static preview default), always forced visible in `@media print` since a printed sheet has no interactivity.
+- **Labs/provider grid layout**: flexbox with per-card borders, not CSS-grid-with-background-gap, because the grid-gap trick leaves a solid placeholder box in the last row whenever a group's item count isn't a multiple of the column count (e.g. Europe's single Mistral card).
+  See backlog #3 above for a related but distinct row-height defect.
