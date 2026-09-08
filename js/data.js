@@ -179,8 +179,8 @@ window.DATA.tools = {
 /* Tooling Features. */
 window.DATA.features = {
   terms: [
-    { term: "Context", def: "All the tokens that are included when next tokens are generated, up to the maximum size (Context Window)." },
     { term: "Harness", def: "The software that 'gives' LLMs access to tools, the filesystem, and other external systems." },
+    { term: "Context", def: "All the tokens that are included when next tokens are generated, up to the maximum size (Context Window)." },
     { term: "MCP", def: "Model Context Protocol, standard for connecting AI applications to external systems." },
     { term: "AGENTS.md", def: "Behavioral base instructions for AI agents.", footnote: "“CLAUDE.md” by Anthropic came first and is the same concept, other vendors often have support for it too as it existed first." },
     { term: "Rules", def: "Scoped (often by path), specific rules for agent behavior — in some tools superseded by other concepts." },

@@ -266,7 +266,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 
 .panel-num {
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: 19px;
   font-weight: 600;
   color: oklch(0.7 0.02 260);
 }
@@ -290,7 +290,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 
 .panel-intro {
-  margin: 0 0 26px;
+  margin: 12px 0 26px;
   font-size: 13px;
   color: var(--ink-muted);
   max-width: 900px;
@@ -510,7 +510,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 .hyperscaler-product {
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: 19px;
   color: oklch(0.78 0.09 var(--hue-inference));
 }
 
@@ -907,7 +907,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 /* ---------- General responsive fallback ---------- */
 
 @media (max-width: 640px) {
-  .title-block, .panel { padding-left: 22px; padding-right: 22px; }
+  .title-block, .panel { padding-top: 12px; padding-left: 22px; padding-right: 22px; gap: 22px; }
   .colophon { padding-left: 22px; padding-right: 22px; }
 }
 

@@ -90,7 +90,7 @@
   window.SECTIONS.push({
     id: "labs-and-models",
     title: "Labs & Models",
-    intro: "Frontier and near-frontier labs, grouped by geography. Each lab lists the model families it is best known for.",
+    intro: "Frontier and near-frontier labs, grouped by geography. List of model families a lab is best known for (dark), optionally some secondary models (light-gray).",
     render
   });
 })();
