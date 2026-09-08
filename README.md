@@ -4,10 +4,12 @@ An infographic to quickly grasp the current state of AI and LLM's for folks in s
 
 ## Viewing
 
+The site lives in `docs/`, so it can be served by GitHub Pages directly.
+
 Run a lightweight static server e.g. with:
 
 ```
-npx serve .
+npx serve docs
 ```
 
 And open in your browser.
