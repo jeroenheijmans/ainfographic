@@ -82,20 +82,6 @@
     return panel;
   }
 
-  // Counts shown in the title block: total labs and total model families
-  // across the Labs & Models data, recomputed from data so they never drift.
-  function computeCounts() {
-    const regions = (window.DATA.labs && window.DATA.labs.regions) || [];
-    let labCount = 0, modelCount = 0;
-    regions.forEach((r) => {
-      labCount += r.labs.length;
-      r.labs.forEach((l) => {
-        modelCount += (l.main || []).length + (l.secondary || []).length;
-      });
-    });
-    return { labCount, modelCount };
-  }
-
   function init() {
     const main = document.getElementById("sections");
     window.SECTIONS.forEach((section, i) => {
@@ -105,10 +91,6 @@
     const renderedAt = "Rendered at " + new Date().toISOString().slice(0, 16).replace("T", " ") + " UTC";
     document.getElementById("edition").textContent = renderedAt;
     document.getElementById("colophon-edition").textContent = renderedAt;
-
-    const { labCount, modelCount } = computeCounts();
-    document.getElementById("counts").textContent =
-      labCount + " labs · " + modelCount + " model families";
 
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)").matches && "IntersectionObserver" in window) {
       const io = new IntersectionObserver((entries) => {

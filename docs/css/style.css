@@ -234,12 +234,13 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   letter-spacing: .04em;
 }
 
-.counts {
+.repo-link {
   font-family: var(--font-mono);
   font-size: 12.5px;
   letter-spacing: .04em;
   color: var(--ink-muted);
 }
+.repo-link:hover { color: var(--ink); }
 
 @media (max-width: 760px) {
   .title-block { grid-template-columns: 1fr; }
