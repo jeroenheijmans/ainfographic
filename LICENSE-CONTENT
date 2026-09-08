@@ -1,8 +1,8 @@
 Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
 This license covers the content of this repository: the data in
-js/data.js and DATA.md, and the rendered infographic (the visual output
-produced by this repository's code).
+js/data.js, and the rendered infographic (the visual output produced 
+by this repository's code).
 
 It does not cover the code itself (HTML, CSS, JavaScript), which is
 licensed separately under MIT — see LICENSE.

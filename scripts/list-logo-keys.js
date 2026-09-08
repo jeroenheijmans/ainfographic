@@ -9,7 +9,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const root = path.join(__dirname, "..");
+const root = path.join(__dirname, "..", "docs");
 const dataSrc = fs.readFileSync(path.join(root, "js", "data.js"), "utf8");
 const logosDir = path.join(root, "logos");
 

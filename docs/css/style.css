@@ -234,12 +234,13 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   letter-spacing: .04em;
 }
 
-.counts {
+.repo-link {
   font-family: var(--font-mono);
   font-size: 12.5px;
   letter-spacing: .04em;
   color: var(--ink-muted);
 }
+.repo-link:hover { color: var(--ink); }
 
 @media (max-width: 760px) {
   .title-block { grid-template-columns: 1fr; }
@@ -310,13 +311,17 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   max-width: 900px;
 }
 
+@keyframes panel-reveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .panel {
     opacity: 0;
-    transform: translateY(14px);
-    transition: opacity .5s ease, transform .5s ease;
+    animation: panel-reveal .5s ease forwards;
+    animation-delay: calc(var(--panel-index, 0) * 70ms);
   }
-  .panel.is-visible { opacity: 1; transform: none; }
 }
 
 /* Per-section accent hues */
@@ -1013,7 +1018,8 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   border-top: 2px solid var(--ink);
   padding: 22px 56px 26px;
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 32px;
   flex-wrap: wrap;
   font-family: var(--font-mono);
@@ -1023,15 +1029,25 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   color: var(--ink-faint);
   background: var(--card-tint);
 }
-.colophon-title { font-weight: 600; color: var(--ink); }
-.colophon .spacer { flex: 1; }
-.colophon a {
-  font-weight: 600;
-  letter-spacing: .06em;
-  color: var(--ink);
-  border-bottom: 1px solid var(--accent-link);
+.colophon-main, .colophon-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-.colophon a:hover { text-decoration: none; }
+.colophon-links { align-items: flex-end; text-align: right; }
+.colophon-title { font-weight: 600; color: var(--ink); }
+.colophon a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: none;
+}
+.colophon a:hover { text-decoration: underline; }
+.colophon-byline { font-weight: 600; color: var(--ink); }
+
+@media (max-width: 640px) {
+  .colophon { flex-direction: column; }
+  .colophon-links { align-items: flex-start; text-align: left; }
+}
 
 /* ---------- General responsive fallback ---------- */
 

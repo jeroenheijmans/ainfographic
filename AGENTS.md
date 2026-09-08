@@ -33,19 +33,19 @@ For example: SpaceX and XAI have merged into SpaceXAI by now.
 
 ## Sections
 
-Section order/numbers follow the `<script>` order in `index.html`.
-Each section's data lives in `js/data.js`, under `window.DATA.<key>`.
-Rendering logic lives in the linked `js/sections/` file.
+Section order/numbers follow the `<script>` order in `docs/index.html`.
+Each section's data lives in `docs/js/data.js`, under `window.DATA.<key>`.
+Rendering logic lives in the linked `docs/js/sections/` file.
 
-1. Labs & Models (`labs-and-models`) - [js/sections/labs.js](js/sections/labs.js) - `DATA.labs`
-2. Inference Providers (`inference-providers`) - [js/sections/inference.js](js/sections/inference.js) - `DATA.inference`
-3. Development Tools & Harnesses (`development-tools`) - [js/sections/tools.js](js/sections/tools.js) - `DATA.tools`
-4. Tooling Features (`tooling-features`) - [js/sections/features.js](js/sections/features.js) - `DATA.features`
-5. Local Inference (`local-inference`) - [js/sections/local.js](js/sections/local.js) - `DATA.local`
-6. SDK & Application Layer (`sdk-application-layer`) - [js/sections/sdk.js](js/sections/sdk.js) - `DATA.sdk`
-7. Security & Failure Modes (`security-and-failure-modes`) - [js/sections/security.js](js/sections/security.js) - `DATA.security`
-8. Terminology & Theory (`terminology-and-theory`) - [js/sections/terminology.js](js/sections/terminology.js) - `DATA.terminology`
-9. Initiatives & Experiments (`initiatives-and-experiments`) - [js/sections/initiatives.js](js/sections/initiatives.js) - `DATA.initiatives`
+1. Labs & Models (`labs-and-models`) - [js/sections/labs.js](docs/js/sections/labs.js) - `DATA.labs`
+2. Inference Providers (`inference-providers`) - [js/sections/inference.js](docs/js/sections/inference.js) - `DATA.inference`
+3. Development Tools & Harnesses (`development-tools`) - [js/sections/tools.js](docs/js/sections/tools.js) - `DATA.tools`
+4. Tooling Features (`tooling-features`) - [js/sections/features.js](docs/js/sections/features.js) - `DATA.features`
+5. Local Inference (`local-inference`) - [js/sections/local.js](docs/js/sections/local.js) - `DATA.local`
+6. SDK & Application Layer (`sdk-application-layer`) - [js/sections/sdk.js](docs/js/sections/sdk.js) - `DATA.sdk`
+7. Security & Failure Modes (`security-and-failure-modes`) - [js/sections/security.js](docs/js/sections/security.js) - `DATA.security`
+8. Terminology & Theory (`terminology-and-theory`) - [js/sections/terminology.js](docs/js/sections/terminology.js) - `DATA.terminology`
+9. Initiatives & Experiments (`initiatives-and-experiments`) - [js/sections/initiatives.js](docs/js/sections/initiatives.js) - `DATA.initiatives`
 
 ## Sessions
 
