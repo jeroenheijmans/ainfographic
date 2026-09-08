@@ -1014,7 +1014,8 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   border-top: 2px solid var(--ink);
   padding: 22px 56px 26px;
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 32px;
   flex-wrap: wrap;
   font-family: var(--font-mono);
@@ -1024,15 +1025,25 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   color: var(--ink-faint);
   background: var(--card-tint);
 }
-.colophon-title { font-weight: 600; color: var(--ink); }
-.colophon .spacer { flex: 1; }
-.colophon a {
-  font-weight: 600;
-  letter-spacing: .06em;
-  color: var(--ink);
-  border-bottom: 1px solid var(--accent-link);
+.colophon-main, .colophon-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-.colophon a:hover { text-decoration: none; }
+.colophon-links { align-items: flex-end; text-align: right; }
+.colophon-title { font-weight: 600; color: var(--ink); }
+.colophon a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: none;
+}
+.colophon a:hover { text-decoration: underline; }
+.colophon-byline { font-weight: 600; color: var(--ink); }
+
+@media (max-width: 640px) {
+  .colophon { flex-direction: column; }
+  .colophon-links { align-items: flex-start; text-align: left; }
+}
 
 /* ---------- General responsive fallback ---------- */
 
