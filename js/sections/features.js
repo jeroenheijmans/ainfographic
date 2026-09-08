@@ -19,10 +19,11 @@
     return el("div", { class: "features-wrap" }, data.terms.map(renderTerm));
   }
 
+  const meta = window.DATA.features;
   window.SECTIONS.push({
-    id: "tooling-features",
-    title: "Tooling Features",
-    intro: "The concepts used across LLMs and agent harnesses. Names might differ per vendor; the ideas do not.",
+    id: meta.id,
+    title: meta.title,
+    intro: meta.intro,
     render
   });
 })();

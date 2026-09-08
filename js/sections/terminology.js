@@ -24,10 +24,11 @@
     return el("div", { class: "term-wrap" }, data.tree.map(renderCategory));
   }
 
+  const meta = window.DATA.terminology;
   window.SECTIONS.push({
-    id: "terminology-and-theory",
-    title: "Terminology & Theory",
-    intro: "A map of the vocabulary, from the bottom of the stack to observed behaviour. Indentation is specialisation.",
+    id: meta.id,
+    title: meta.title,
+    intro: meta.intro,
     render
   });
 })();

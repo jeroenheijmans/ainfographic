@@ -14,10 +14,11 @@
     return el("div", { class: "init-grid" }, window.DATA.initiatives.items.map(renderItem));
   }
 
+  const meta = window.DATA.initiatives;
   window.SECTIONS.push({
-    id: "initiatives-and-experiments",
-    title: "Initiatives & Experiments",
-    intro: "Strange and wonderful things at the edge. Stuff that might pop up at the lunch table, but isn't everyday stuff for most developers... for now.",
+    id: meta.id,
+    title: meta.title,
+    intro: meta.intro,
     render
   });
 })();
