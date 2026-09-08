@@ -87,10 +87,11 @@
     return wrap;
   }
 
+  const meta = window.DATA.labs;
   window.SECTIONS.push({
-    id: "labs-and-models",
-    title: "Labs & Models",
-    intro: "Frontier and near-frontier labs, grouped by geography. List of model families a lab is best known for (dark), optionally some secondary models (light-gray).",
+    id: meta.id,
+    title: meta.title,
+    intro: meta.intro,
     render
   });
 })();

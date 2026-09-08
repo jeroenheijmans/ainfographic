@@ -25,10 +25,11 @@
     return el("div", { class: "tools-wrap" }, data.categories.map(renderCategory));
   }
 
+  const meta = window.DATA.tools;
   window.SECTIONS.push({
-    id: "development-tools",
-    title: "Development Tools & Harnesses",
-    intro: "Grouped by the shape in which each tool comes. Several products or suites appear in more than one row.",
+    id: meta.id,
+    title: meta.title,
+    intro: meta.intro,
     render
   });
 })();

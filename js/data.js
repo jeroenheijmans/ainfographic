@@ -21,6 +21,9 @@ window.DATA.logoFileExtensions = {
    Content is human-authored; do not change facts here without
    coordinating with the human operator. */
 window.DATA.labs = {
+  id: "labs-and-models",
+  title: "Labs & Models",
+  intro: "Frontier and near-frontier labs, grouped by geography. List of model families a lab is best known for (dark), optionally some secondary models (light-gray).",
   root: "Providers & Models",
   regions: [
     {
@@ -87,6 +90,9 @@ window.DATA.labs = {
 
 /* Inference Providers. */
 window.DATA.inference = {
+  id: "inference-providers",
+  title: "Inference Providers",
+  intro: "Every major lab (e.g. OpenAI, Anthropic, Google, Mistral, Alibaba, etc.) serves its own models. Listed here are the providers that host several labs' models. Indicative, not exhaustive — a trailing ellipsis means a long tail. Hyperscalers come first, highlighted in dark blocks.",
   hyperscalers: [
     { name: "Amazon", key: "amazon", label: "Bedrock",
       hosts: ["Nova", "Anthropic", "gpt-oss", "gemma", "Llama", "Qwen", "DeepSeek", "MiniMax", "Kimi", "Nemotron", "Mistral"],
@@ -125,6 +131,9 @@ window.DATA.inference = {
 
 /* Development Tools. */
 window.DATA.tools = {
+  id: "development-tools",
+  title: "Development Tools & Harnesses",
+  intro: "Grouped by the shape in which each tool comes. Several products or suites appear in more than one row.",
   categories: [
     { name: "CLI Tools", tools: [
       { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex" },
@@ -178,6 +187,9 @@ window.DATA.tools = {
 
 /* Tooling Features. */
 window.DATA.features = {
+  id: "tooling-features",
+  title: "Tooling Features",
+  intro: "The concepts used across LLMs and agent harnesses. Names might differ per vendor; the ideas do not.",
   terms: [
     { term: "Harness", def: "The software that 'gives' LLMs access to tools, the filesystem, and other external systems." },
     { term: "Context", def: "All the tokens that are included when next tokens are generated, up to the maximum size (Context Window)." },
@@ -193,6 +205,9 @@ window.DATA.features = {
 
 /* Local Inference. */
 window.DATA.local = {
+  id: "local-inference",
+  title: "Local Inference",
+  intro: "Running models on your own hardware: what you need, in what shape it arrives, and where to get it.",
   notes: [
     "Requires “open-weight”, downloadable models.",
     "The constraint is almost always VRAM, not compute.",
@@ -208,6 +223,9 @@ window.DATA.local = {
 
 /* SDK & Application Layer. */
 window.DATA.sdk = {
+  id: "sdk-application-layer",
+  title: "SDK & Application Layer",
+  intro: "Various parts involved in setting up tooling in a more customized fashion.",
   layers: [
     { name: "Wire Protocol", items: ["OpenAI-compatible Chat Completions and Responses API, the de facto interop standard"] },
     { name: "Provider SDKs", items: ["OpenAI SDK", "Anthropic SDK", "Google GenAI SDK", "AWS SDK"] },
@@ -219,6 +237,9 @@ window.DATA.sdk = {
 
 /* Security and Failure Modes. */
 window.DATA.security = {
+  id: "security-and-failure-modes",
+  title: "Security & Failure Modes",
+  intro: "LLMs and agents blur the line between data and instructions. Risks on the left, defenses on the right.",
   angles: [
     { term: "Prompt Injection", def: "untrusted input interpreted as instructions, either direct (from user) or indirect (on fetched external sources)." },
     { term: "Lethal Trifecta", def: "access to sensitive data, untrusted input, and exfiltration capabilities. Only two is still fine, all three causes security issues." },
@@ -238,6 +259,9 @@ window.DATA.security = {
 
 /* Terminology and Theory. */
 window.DATA.terminology = {
+  id: "terminology-and-theory",
+  title: "Terminology & Theory",
+  intro: "A map of the vocabulary, from the bottom of the stack to observed behaviour. Indentation is specialisation.",
   tree: [
     { name: "Foundations", children: [
       { name: "Neural Network", children: [
@@ -297,6 +321,9 @@ window.DATA.terminology = {
 
 /* Initiatives & Experiments. */
 window.DATA.initiatives = {
+  id: "initiatives-and-experiments",
+  title: "Initiatives & Experiments",
+  intro: "Strange and wonderful things at the edge. Stuff that might pop up at the lunch table, but isn't everyday stuff for most developers... for now.",
   items: [
     { name: "Dolt", def: "SQL database with git-style versioning used for AI agent state persistence." },
     { name: "Beads", def: "graph-based issue tracker built on Dolt, for AI agent use." },

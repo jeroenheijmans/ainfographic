@@ -54,10 +54,11 @@
     ]);
   }
 
+  const meta = window.DATA.inference;
   window.SECTIONS.push({
-    id: "inference-providers",
-    title: "Inference Providers",
-    intro: "Every major lab (e.g. OpenAI, Anthropic, Google, Mistral, Alibaba, etc.) serves its own models. Listed here are the providers that host several labs' models. Indicative, not exhaustive — a trailing ellipsis means a long tail. Hyperscalers come first, highlighted in dark blocks.",
+    id: meta.id,
+    title: meta.title,
+    intro: meta.intro,
     render
   });
 })();

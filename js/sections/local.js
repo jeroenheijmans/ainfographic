@@ -21,10 +21,11 @@
     ]);
   }
 
+  const meta = window.DATA.local;
   window.SECTIONS.push({
-    id: "local-inference",
-    title: "Local Inference",
-    intro: "Running models on your own hardware: what you need, in what shape it arrives, and where to get it.",
+    id: meta.id,
+    title: meta.title,
+    intro: meta.intro,
     render
   });
 })();

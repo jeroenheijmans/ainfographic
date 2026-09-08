@@ -20,10 +20,11 @@
       renderLayer(l, "Layer " + String(layers.length - i).padStart(2, "0"), i === ordered.length - 1)));
   }
 
+  const meta = window.DATA.sdk;
   window.SECTIONS.push({
-    id: "sdk-application-layer",
-    title: "SDK & Application Layer",
-    intro: "Various parts involved in setting up tooling in a more customized fashion.",
+    id: meta.id,
+    title: meta.title,
+    intro: meta.intro,
     render
   });
 })();
