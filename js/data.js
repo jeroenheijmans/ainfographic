@@ -134,59 +134,38 @@ window.DATA.inference = {
 window.DATA.tools = {
   id: "development-tools",
   title: "Development Tools & Harnesses",
-  intro: "Grouped by the shape in which each tool comes. Several products or suites appear in more than one row.",
-  categories: [
-    { name: "CLI Tools", tools: [
-      { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex" },
-      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic", toolKey: "claude-code" },
-      { name: "Antigravity", vendor: "Google", vendorKey: "google", toolKey: "antigravity" },
-      { name: "Copilot", vendor: "GitHub", vendorKey: "github", toolKey: "copilot" },
-      { name: "Vibe", vendor: "Mistral", vendorKey: "mistral", toolKey: "vibe" },
-      { name: "OpenCode", vendor: "Anomaly", vendorKey: "anomaly", toolKey: "opencode" },
-      { name: "Junie", vendor: "JetBrains", vendorKey: "jetbrains", toolKey: "junie" },
-      { name: "Aider", vendor: "open source", vendorKey: "aider", toolKey: "aider" },
-      { name: "Cline", vendor: "Cline Bot Inc.", vendorKey: "cline-bot-inc", toolKey: "cline" },
-      { name: "Qoder", vendor: "Alibaba", vendorKey: "alibaba", toolKey: "qoder" }
-    ]},
-    { name: "IDE Extensions", tools: [
-      { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex" },
-      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic", toolKey: "claude-code" },
-      { name: "Copilot", vendor: "GitHub", vendorKey: "github", toolKey: "copilot" },
-      { name: "Vibe", vendor: "Mistral", vendorKey: "mistral", toolKey: "vibe" },
-      { name: "OpenCode", vendor: "Anomaly", vendorKey: "anomaly", toolKey: "opencode" },
-      { name: "Junie", vendor: "JetBrains", vendorKey: "jetbrains", toolKey: "junie" },
-      { name: "Q Developer", vendor: "Amazon", vendorKey: "amazon", toolKey: "q-developer" },
-      { name: "Cline", vendor: "Cline Bot Inc.", vendorKey: "cline-bot-inc", toolKey: "cline" }
-    ]},
-    { name: "IDEs", tools: [
-      { name: "Cursor", vendor: "SpaceXAI", vendorKey: "spacexai", toolKey: "cursor" },
-      { name: "Antigravity", vendor: "Google", vendorKey: "google", toolKey: "antigravity" },
-      { name: "Kiro", vendor: "Amazon", vendorKey: "amazon", toolKey: "kiro" },
-      { name: "Devin Desktop (formerly Windsurf)", vendor: "Cognition", vendorKey: "cognition", toolKey: "windsurf" },
-      { name: "Zed", vendor: "Zed Industries", vendorKey: "zed-industries", toolKey: "zed" },
-      { name: "Trae", vendor: "ByteDance", vendorKey: "bytedance", toolKey: "trae" },
-      { name: "Qoder", vendor: "Alibaba", vendorKey: "alibaba", toolKey: "qoder" }
-    ]},
-    { name: "Standalone GUI", tools: [
-      { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex" },
-      { name: "Claude", vendor: "Anthropic", vendorKey: "anthropic", toolKey: "claude" }
-    ]},
-    { name: "SaaS Tools", tools: [
-      { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex" },
-      { name: "Claude Code", vendor: "Anthropic", vendorKey: "anthropic", toolKey: "claude-code" },
-      { name: "Copilot", vendor: "GitHub", vendorKey: "github", toolKey: "copilot" },
-      { name: "Devin", vendor: "Cognition", vendorKey: "cognition", toolKey: "devin" }
-    ]},
-    { name: "Browser Dev Tools", tools: [
-      { name: "Replit", vendor: "Replit", vendorKey: "replit", toolKey: "replit" },
-      { name: "AI Studio", vendor: "Google", vendorKey: "google", toolKey: "ai-studio" }
-    ]},
-    { name: "Browser App Builders", tools: [
-      { name: "Bolt.new", vendor: "StackBlitz", vendorKey: "stackblitz", toolKey: "bolt-new" },
-      { name: "Lovable", vendor: "Lovable", vendorKey: "lovable", toolKey: "lovable" },
-      { name: "Base44", vendor: "Wix", vendorKey: "wix", toolKey: "base44" },
-      { name: "v0", vendor: "Vercel", vendorKey: "vercel", toolKey: "v0" }
-    ]}
+  intro: "The shape(s) each tool comes in. Several products or suites come in more than one form.",
+  forms: [
+    { name: "CLI Tools", short: "CLI" },
+    { name: "IDE Extensions", short: "IDE ext." },
+    { name: "IDEs", short: "IDE" },
+    { name: "Standalone GUI", short: "Desktop app" },
+    { name: "SaaS Tools", short: "SaaS" },
+    { name: "Browser Apps", short: "Browser app" }
+  ],
+  rows: [
+    { name: "Aider", vendor: "open source", vendorKey: "aider", toolKey: "aider", forms: ["CLI Tools"] },
+    { name: "AI Studio", vendor: "Google", vendorKey: "google", toolKey: "ai-studio", forms: ["Browser Apps"] },
+    { name: "Antigravity", vendor: "Google", vendorKey: "google", toolKey: "antigravity", forms: ["CLI Tools", "IDEs"] },
+    { name: "Base44", vendor: "Wix", vendorKey: "wix", toolKey: "base44", forms: ["Browser Apps"] },
+    { name: "Bolt.new", vendor: "StackBlitz", vendorKey: "stackblitz", toolKey: "bolt-new", forms: ["Browser Apps"] },
+    { name: "Claude", vendor: "Anthropic", vendorKey: "anthropic", toolKey: "claude-code", forms: ["CLI Tools", "IDE Extensions", "Standalone GUI", "SaaS Tools"] },
+    { name: "Cline", vendor: "Cline Bot Inc.", vendorKey: "cline-bot-inc", toolKey: "cline", forms: ["CLI Tools", "IDE Extensions"] },
+    { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex", forms: ["CLI Tools", "IDE Extensions", "Standalone GUI", "SaaS Tools"] },
+    { name: "Copilot", vendor: "GitHub", vendorKey: "github", toolKey: "copilot", forms: ["CLI Tools", "IDE Extensions", "SaaS Tools"] },
+    { name: "Cursor", vendor: "SpaceXAI", vendorKey: "spacexai", toolKey: "cursor", forms: ["IDEs"] },
+    { name: "Devin", vendor: "Cognition", vendorKey: "cognition", toolKey: "devin", forms: ["IDEs", "SaaS Tools"] },
+    { name: "Junie", vendor: "JetBrains", vendorKey: "jetbrains", toolKey: "junie", forms: ["CLI Tools", "IDE Extensions"] },
+    { name: "Kiro", vendor: "Amazon", vendorKey: "amazon", toolKey: "kiro", forms: ["IDEs"] },
+    { name: "Lovable", vendor: "Lovable", vendorKey: "lovable", toolKey: "lovable", forms: ["Browser Apps"] },
+    { name: "OpenCode", vendor: "Anomaly", vendorKey: "anomaly", toolKey: "opencode", forms: ["CLI Tools", "IDE Extensions"] },
+    { name: "Q Developer", vendor: "Amazon", vendorKey: "amazon", toolKey: "q-developer", forms: ["IDE Extensions"] },
+    { name: "Qoder", vendor: "Alibaba", vendorKey: "alibaba", toolKey: "qoder", forms: ["CLI Tools", "IDEs"] },
+    { name: "Replit", vendor: "Replit", vendorKey: "replit", toolKey: "replit", forms: ["Browser Apps"] },
+    { name: "Trae", vendor: "ByteDance", vendorKey: "bytedance", toolKey: "trae", forms: ["IDEs"] },
+    { name: "v0", vendor: "Vercel", vendorKey: "vercel", toolKey: "v0", forms: ["Browser Apps"] },
+    { name: "Vibe", vendor: "Mistral", vendorKey: "mistral", toolKey: "vibe", forms: ["CLI Tools", "IDE Extensions", "SaaS Tools"] },
+    { name: "Zed", vendor: "Zed Industries", vendorKey: "zed-industries", toolKey: "zed", forms: ["IDEs"] }
   ]
 };
 

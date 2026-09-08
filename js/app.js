@@ -46,6 +46,7 @@
       src: "logos/" + key + "." + ext,
       alt: "",
       title: alt || "",
+      "aria-hidden": "true",
       loading: "lazy",
       onerror: "if (this.dataset.fallback) { this.style.display='none'; } else { this.dataset.fallback = '1'; this.src = 'logos/_fallback.svg'; }"
     });

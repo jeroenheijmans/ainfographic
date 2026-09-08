@@ -123,6 +123,20 @@ body {
 a { color: var(--accent-link); text-decoration: none; }
 a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 
+/* Available to assistive tech, invisible on the page — used where a visual
+   cue (a checkmark, a coloured cell) carries meaning that needs words. */
+.u-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 .page {
   width: 100%;
   display: flex;
@@ -605,42 +619,157 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 
 /* ---------- 03 Development Tools & Harnesses ---------- */
 
-.tools-wrap { display: flex; flex-direction: column; border-top: 1px solid var(--hairline-soft); }
+.tools-icon { display: inline-flex; color: oklch(0.52 0.11 var(--hue-tools)); }
+.tools-icon svg { width: 21px; height: 21px; display: block; }
 
-.tool-row {
-  display: grid;
-  grid-template-columns: 210px 1fr;
-  gap: 24px;
-  align-items: baseline;
-  padding: 15px 0;
-  border-bottom: 1px solid var(--hairline-soft);
+.tools-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
-.tool-cat { display: flex; align-items: baseline; gap: 8px; }
-.tool-cat-name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 1;
+
+/* Wide enough that no name or vendor ever wraps or clips — the widest pair
+   today measures 118px including the logo, so this leaves ~40px of headroom
+   for longer entries before the column would need revisiting. */
+.tools-corner {
+  width: 176px;
+  text-align: left;
+  vertical-align: bottom;
+  padding: 0 16px 12px 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .16em;
   text-transform: uppercase;
-  color: oklch(0.4 0.11 var(--hue-tools));
+  color: var(--ink-faint);
 }
-.tool-chips { display: flex; flex-wrap: wrap; gap: 7px; }
-.tool-chip {
-  display: inline-flex;
+
+.tools-col { vertical-align: bottom; padding: 0 6px 11px; }
+.tools-col-inner {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding: 5px 11px;
+}
+.tools-col-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
+  color: oklch(0.38 0.08 var(--hue-tools));
+}
+
+.tools-stub {
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 400;
+  padding: 6px 16px 6px 0;
+}
+/* Name over vendor rather than side by side: two short lines cost less width
+   than one long one, and the columns get what's left. */
+.tools-identity { display: flex; align-items: center; gap: 9px; }
+.tools-identity .vendor-logo { width: 18px; height: 18px; }
+/* Sized to the column rather than to its text, and clipped: an entry longer
+   than the column reads as cut off at the edge instead of spilling into the
+   matrix. The fade is the cut — a hard chop mid-glyph looks like a bug.
+   Today's widest entry stops ~40px short of it. */
+.tools-identity-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+}
+.tools-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  color: oklch(0.26 0.02 260);
+}
+.tools-vendor {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.25;
+  white-space: nowrap;
+  color: var(--ink-faint);
+}
+
+.tools-cell { text-align: center; vertical-align: middle; padding: 6px 4px; }
+
+/* The mark: a solid tile in the section accent carrying a white check.
+   Solid fill is what makes a sparse matrix scannable — a bare glyph in
+   the accent colour disappears against the paper. */
+.tools-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
   border-radius: 4px;
-  background: oklch(0.97 0.02 var(--hue-tools));
-  border: 1px solid oklch(0.87 0.05 var(--hue-tools));
+  background: oklch(0.58 0.16 var(--hue-tools));
+  color: #fff;
+}
+.tools-mark svg { width: 13px; height: 13px; display: block; }
+
+/* Icon + label pill; the narrow layout's stand-in for a mark in a column. */
+.tools-tag {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px 3px 6px;
+  border-radius: 3px;
+  background: oklch(0.96 0.03 var(--hue-tools));
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: oklch(0.36 0.08 var(--hue-tools));
   white-space: nowrap;
 }
-.tool-chip .vendor-logo { width: 15px; height: 15px; }
-.tool-name { font-size: 13px; font-weight: 600; color: oklch(0.28 0.04 var(--hue-tools)); }
-.tool-vendor { font-family: var(--font-mono); font-size: 11.5px; color: oklch(0.5 0.05 var(--hue-tools)); }
+.tools-tag .tools-icon svg { width: 15px; height: 15px; }
 
-@media (max-width: 700px) {
-  .tool-row { grid-template-columns: 1fr; gap: 8px; }
+.tools-head-row { border-bottom: 2px solid oklch(0.7 0.11 var(--hue-tools)); }
+
+/* Wide: banded rows carry the horizontal scan, so no row rules are needed —
+   one vertical rule fences the stub column off from the matrix. */
+@media (min-width: 861px) {
+  .tools-row:nth-child(even) { background: oklch(0.977 0.008 var(--hue-tools)); }
+  .tools-row:hover { background: oklch(0.962 0.019 var(--hue-tools)); }
+  .tools-corner,
+  .tools-stub { border-right: 1px solid var(--hairline-soft); }
+}
+
+/* Narrow: the header row goes to assistive tech only and each row becomes its
+   own block — tool, then the forms it comes in, as tags. Same DOM, so nothing
+   scrolls sideways and print follows the viewport. */
+@media (max-width: 860px) {
+  .tools-table,
+  .tools-matrix tbody,
+  .tools-row,
+  .tools-stub { display: block; }
+  .tools-matrix thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .tools-row { padding: 11px 0; border-bottom: 1px solid var(--hairline-soft); }
+  .tools-row:first-child { border-top: 1px solid var(--hairline-soft); }
+  .tools-stub { padding: 0 0 7px; }
+  .tools-cell { display: none; }
+  .tools-cell.is-on {
+    display: inline-block;
+    padding: 0 6px 0 0;
+    margin-bottom: 4px;
+  }
+  .tools-mark { display: none; }
+  .tools-tag { display: inline-flex; }
 }
 
 /* ---------- 04 Tooling Features ---------- */
