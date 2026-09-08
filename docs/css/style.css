@@ -311,13 +311,17 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   max-width: 900px;
 }
 
+@keyframes panel-reveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .panel {
     opacity: 0;
-    transform: translateY(14px);
-    transition: opacity .5s ease, transform .5s ease;
+    animation: panel-reveal .5s ease forwards;
+    animation-delay: calc(var(--panel-index, 0) * 70ms);
   }
-  .panel.is-visible { opacity: 1; transform: none; }
 }
 
 /* Per-section accent hues */

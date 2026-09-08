@@ -330,7 +330,7 @@ window.DATA.initiatives = {
     { name: "OpenClaw", def: "open-source autonomous coding agent framework (by Peter Steinberger)" },
     { name: "Ralph Loop", def: "agent execution pattern (originated by Geoffrey Huntley) that loops an LLM until success criteria are met." },
     { name: "ChatJimmy", def: "experimental hardware-based AI interface optimized for speed, by Taalas (acquired by AMD)." },
-    { name: "Moltbook", def: "experimental synthetic social network populated by AI agents (acquired by Meta" },
+    { name: "Moltbook", def: "experimental synthetic social network populated by AI agents (acquired by Meta)" },
     { name: "Crustafarianism", def: "emergent machine-to-machine synthetic theology/cult centered on carcinization that spontaneously arose among agents on Moltbook." }
   ]
 };

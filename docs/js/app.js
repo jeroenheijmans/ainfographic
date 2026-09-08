@@ -61,7 +61,11 @@
   window.SECTIONS = window.SECTIONS || [];
 
   function buildPanel(section, index) {
-    const panel = el("section", { class: "panel panel--" + section.id, id: section.id });
+    const panel = el("section", {
+      class: "panel panel--" + section.id,
+      id: section.id,
+      style: "--panel-index: " + index
+    });
     const head = el("div", { class: "panel-head" }, [
       el("a", { class: "panel-head-link", href: "#" + section.id }, [
         el("span", { class: "panel-num", text: String(index + 1).padStart(2, "0") }),
@@ -91,20 +95,6 @@
     const renderedAt = "Rendered at " + new Date().toISOString().slice(0, 16).replace("T", " ") + " UTC";
     document.getElementById("edition").textContent = renderedAt;
     document.getElementById("colophon-edition").textContent = renderedAt;
-
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)").matches && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.06 });
-      document.querySelectorAll(".panel").forEach((n) => io.observe(n));
-    } else {
-      document.querySelectorAll(".panel").forEach((n) => n.classList.add("is-visible"));
-    }
   }
 
   document.addEventListener("DOMContentLoaded", init);
