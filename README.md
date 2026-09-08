@@ -2,6 +2,8 @@
 
 An infographic to quickly grasp the current state of AI and LLM's for folks in software engineering.
 
+🌐 LIVE VERSION AT: [https://ainfographic.jeroenheijmans.nl/](https://ainfographic.jeroenheijmans.nl/)
+
 ## Viewing
 
 The site lives in `docs/`, so it can be served by GitHub Pages directly.
