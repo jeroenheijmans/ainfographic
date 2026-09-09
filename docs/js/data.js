@@ -153,7 +153,7 @@ window.DATA.tools = {
     { name: "Cline", vendor: "Cline Bot Inc.", vendorKey: "cline-bot-inc", toolKey: "cline", forms: ["CLI Tools", "IDE Extensions"] },
     { name: "Codex", vendor: "OpenAI", vendorKey: "openai", toolKey: "codex", forms: ["CLI Tools", "IDE Extensions", "Standalone GUI", "SaaS Tools"] },
     { name: "Copilot", vendor: "GitHub", vendorKey: "github", toolKey: "copilot", forms: ["CLI Tools", "IDE Extensions", "SaaS Tools"] },
-    { name: "Cursor", vendor: "SpaceXAI", vendorKey: "spacexai", toolKey: "cursor", forms: ["IDEs"] },
+    { name: "Cursor", vendor: "SpaceXAI", vendorKey: "spacexai", toolKey: "cursor", forms:  ["IDEs", "CLI Tools", "Standalone GUI"] },
     { name: "Devin", vendor: "Cognition", vendorKey: "cognition", toolKey: "devin", forms: ["IDEs", "SaaS Tools"] },
     { name: "Junie", vendor: "JetBrains", vendorKey: "jetbrains", toolKey: "junie", forms: ["CLI Tools", "IDE Extensions"] },
     { name: "Kiro", vendor: "Amazon", vendorKey: "amazon", toolKey: "kiro", forms: ["IDEs"] },
