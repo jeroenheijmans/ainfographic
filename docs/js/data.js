@@ -215,7 +215,7 @@ window.DATA.sdk = {
     { name: "Wire Protocol", items: ["Model Context Protocol (MCP)", "OpenAI-compatible Chat Completions and Responses API, the de facto interop standard"] },
     { name: "Provider SDKs", items: ["OpenAI SDK", "Anthropic SDK", "Google GenAI SDK", "AWS SDK"] },
     { name: "Agent SDKs", items: ["OpenAI Agents SDK", "Claude Agent SDK (Anthropic)", "Agent Development Kit (Google)", "Strands (Amazon)", "Agent Framework (Microsoft)"] },
-    { name: "Framewors", items: ["LangChain", "LangGraph", "LlamaIndex", "Vercel AI SDK", "Pydantic AI", "Mastra", "DSPy", "Haystack", "CrewAI"] },
+    { name: "Frameworks", items: ["LangChain", "LangGraph", "LlamaIndex", "Vercel AI SDK", "Pydantic AI", "Mastra", "DSPy", "Haystack", "CrewAI"] },
     { name: "Evaluation & Observability", items: ["LangSmith", "Langfuse", "Braintrust", "Arize Phoenix", "OpenTelemetry GenAI conventions", "LLM-as-judge"] }
   ]
 };
