@@ -176,7 +176,7 @@ window.DATA.features = {
   intro: "The concepts used across LLMs and agent harnesses. Names might differ per vendor; the ideas do not.",
   terms: [
     { term: "Harness", def: "The software that 'gives' LLMs access to tools, the filesystem, and other external systems - and orchestrates it all." },
-    { term: "Context", def: "All the tokens that are included when next tokens are generated, up to the maximum size (Context Window)." },
+    { term: "Context", def: "All the tokens that are included when the next token is generated, up to the maximum size (Context Window)." },
     { term: "Compaction", def: "Automated summarization of session context to prevent going over the Context Window." },
     { term: "MCP", def: "Model Context Protocol, standard for connecting AI applications to external systems." },
     { term: "AGENTS.md", def: "Behavioral base instructions for AI agents.", footnote: "“CLAUDE.md” by Anthropic came first and is the same concept, other vendors often have support for it too as it existed first." },
@@ -196,7 +196,7 @@ window.DATA.local = {
   notes: [
     "Requires “open-weight”, downloadable models.",
     "The constraint is almost always VRAM, not compute.",
-    "Quantization trades quality for fit."
+    "Quantization means compressing model weights, optimizing size at the expense of quality."
   ],
   layers: [
     { name: "Runtimes", items: ["llama.cpp (ggml)", "Ollama", "LM Studio", "MLX (Apple)", "llamafile (Mozilla)"] },
@@ -235,7 +235,7 @@ window.DATA.security = {
   ],
   mitigations: [
     { term: "Sandboxing", def: "containers, VMs, devcontainers" },
-    { term: "Network Restrictions", def: "default-deny egress as a cheap break" },
+    { term: "Network Restrictions", def: "default-deny egress, domain allowlisting, private VPC endpoints" },
     { term: "Least Privilige", def: "scoped access, read-only tools by default, no prod access" },
     { term: "Human in the Loop", def: "approval gates, plan mode, review before write or execute" },
     { term: "Auditing", def: "trails for agent actions" },
