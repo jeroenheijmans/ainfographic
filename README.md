@@ -19,7 +19,7 @@ And open in your browser.
 ## License
 
 - **Code** (HTML, CSS, and JavaScript in this repository): [MIT](./LICENSE).
-- **Content** (the data in `js/data.js`, and the rendered infographic itself): [CC BY-SA 4.0](./LICENSE-CONTENT).
+- **Content** (the data inlined in `index.html`, and the rendered infographic itself): [CC BY-SA 4.0](./LICENSE-CONTENT).
 
 Company, product, and tool names referenced throughout are trademarks of their respective owners, mentioned for identification only.
 Any logos in `logos/` are used under their respective owners' guidelines and trademark policies, and are not covered by either license above.

@@ -16,6 +16,10 @@
     return span;
   }
 
+  function flagImg(country) {
+    return el("img", { class: "lab-flag", src: "flags/" + country.toLowerCase() + ".svg", alt: country, title: country });
+  }
+
   function renderLabCard(lab) {
     const footnotes = [];
     const main = el("div", { class: "lab-chips" }, lab.main.map((m) => chip(m, "main", footnotes)));
@@ -26,7 +30,7 @@
       el("div", { class: "lab-card-head" }, [
         logoImg(lab.key, lab.name),
         el("span", { class: "lab-name", text: lab.name }),
-        el("span", { class: "lab-cc", text: lab.country })
+        flagImg(lab.country)
       ]),
       main,
       secondary,
@@ -36,13 +40,6 @@
   }
 
   const REGION_HUES = [250, 148, 28, 205, 325, 72];
-
-  // Display-only relabeling: window.DATA.labs groups these by continent, but
-  // every lab currently listed under "North America"/"Asia" is US/China
-  // respectively, so the section header names the actual countries. The
-  // underlying region.name is left untouched.
-  const REGION_LABELS = { "North America": "US", "Asia": "China" };
-  function regionLabel(name) { return REGION_LABELS[name] || name; }
 
   // Pads a region's trailing row with ghost cells so leftover grid space
   // reads as tint rather than bare hairline color (see .lab-card-filler in
@@ -65,7 +62,7 @@
     const hue = REGION_HUES[i % REGION_HUES.length];
     return el("div", { class: "lab-region", style: "--region-hue: " + hue }, [
       el("div", { class: "lab-region-head" }, [
-        el("span", { class: "lab-region-name", text: regionLabel(region.name) }),
+        el("span", { class: "lab-region-name", text: region.name }),
         el("span", { class: "lab-region-tally", text: tally })
       ]),
       el("div", { class: "lab-grid" }, region.labs.map(renderLabCard).concat(labFillers(region.labs.length)))

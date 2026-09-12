@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Walks js/data.js and prints every unique logo key currently referenced
+// Walks the inline data in index.html and prints every unique logo key referenced
 // (via `key:` or `toolKey:` fields — `vendorKey:` is display-only data and no
 // longer drives a logo lookup), plus which ones already have a file
 // under logos/. Run with plain `node scripts/list-logo-keys.js` — not a
@@ -10,7 +10,7 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..", "docs");
-const dataSrc = fs.readFileSync(path.join(root, "js", "data.js"), "utf8");
+const dataSrc = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const logosDir = path.join(root, "logos");
 
 const keys = new Set();
@@ -25,7 +25,7 @@ const existing = new Set(
 );
 
 const sorted = [...keys].sort();
-console.log(sorted.length + " logo key(s) referenced in js/data.js:\n");
+console.log(sorted.length + " logo key(s) referenced in index.html:\n");
 sorted.forEach((key) => {
   console.log((existing.has(key) ? "[x] " : "[ ] ") + key);
 });
