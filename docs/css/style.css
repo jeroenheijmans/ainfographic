@@ -392,6 +392,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
 }
 
 .lab-card {
+  position: relative;
   background: var(--card);
   padding: 13px 15px 15px;
   min-height: 192px;
@@ -419,6 +420,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   display: flex;
   align-items: center;
   gap: 8px;
+  padding-right: 26px;
   border-bottom: 1px solid var(--card-tint);
   padding-bottom: 7px;
 }
@@ -430,12 +432,13 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   text-transform: uppercase;
   letter-spacing: .01em;
 }
-.lab-cc {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  font-weight: 500;
-  color: oklch(0.58 0.16 var(--region-hue, 250));
-  letter-spacing: .08em;
+.lab-flag {
+  position: absolute;
+  inset: 13px 15px auto auto;
+  height: 16px;
+  width: auto;
+  border-radius: 2px;
+  border: 1px solid var(--card-tint);
 }
 .lab-chips { display: flex; flex-wrap: wrap; gap: 5px; }
 
