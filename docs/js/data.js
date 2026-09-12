@@ -174,17 +174,47 @@ window.DATA.features = {
   id: "tooling-features",
   title: "Tooling Features",
   intro: "The concepts used across LLMs and agent harnesses. Names might differ per vendor; the ideas do not.",
-  terms: [
-    { term: "Harness", def: "The software that 'gives' LLMs access to tools, the filesystem, and other external systems - and orchestrates it all." },
-    { term: "Context", def: "All the tokens that are included when the next token is generated, up to the maximum size (Context Window)." },
-    { term: "Compaction", def: "Automated summarization of session context to prevent going over the Context Window." },
-    { term: "MCP", def: "Model Context Protocol, standard for connecting AI applications to external systems." },
-    { term: "AGENTS.md", def: "Behavioral base instructions for AI agents.", footnote: "“CLAUDE.md” by Anthropic came first and is the same concept, other vendors often have support for it too as it existed first." },
-    { term: "Rules", def: "Scoped (often by path), specific rules for agent behavior — in some harnesses superseded by other concepts." },
-    { term: "Skills", def: "Standard for reusable prompts optionally with included scripts, invoked on demand." },
-    { term: "Hooks", def: "Deterministic automations (harness-specific) to react to lifecycle events of agentic flows." },
-    { term: "Sub-agents", def: "Specialized agents. Spawn with specific (often limited) context, return results and output to their parent." },
-    { term: "Memory", def: "Mechanism (harness-specific) to retain context between sessions." }
+  groups: [
+    {
+      title: "Runtime",
+      terms: [
+        { term: "Harness", def: "The software that 'gives' LLMs access to tools, the filesystem, and other external systems - and orchestrates it all." },
+        { term: "Model", def: "The specific LLM chosen for the session or task — harnesses often let you pick or switch per session or even request." },
+        { term: "Reasoning Effort", def: "How much internal 'thinking' the model does before responding. Commonly called 'low', 'medium', 'high', etc." },
+        { term: "Tools", def: "Actions the model can request to be invoked by the harness on its behalf (file access, shell, search, APIs, etc.)." },
+      ]
+    },
+    {
+      title: "Context",
+      terms: [
+        { term: "System Prompt", def: "Harness-defined instructions loaded before any other input." },
+        { term: "Context", def: "All the tokens that are included when the next token is generated." },
+        { term: "Context Window", def: "Maximum size the Context can grow to." },
+        { term: "Compaction", def: "Shrinking session context to prevent Context from becoming (too) large." },
+      ]
+    },
+    {
+      title: "Customization",
+      terms: [
+        { term: "AGENTS.md", def: "Repository-specific behavioral base instructions for AI agents (files in root or subfolders of a repository).", footnote: "'CLAUDE.md' by Anthropic came first and is the same concept, other vendors often have support for it too as it existed first." },
+        { term: "Memory", def: "User-specific behavioral instructions for AI agents the harness 'remembers' to load in context for new sessions." },
+        { term: "Rules", def: "Scoped (often by path), specific rules for agent behavior — in some harnesses superseded by other concepts." },
+        { term: "Skills", def: "Standard for reusable prompts optionally with included scripts, invoked on demand or automatically. Metadata always loaded, skill details loaded when needed." },
+        { term: "Slash Commands", def: "User-invoked shortcuts for common prompts or actions, triggered explicitly by the user." },
+        { term: "Sub-agents", def: "Definitions for specialized agents to be spawned by the harness with (often limited) context. They return summarized output to their parent." },
+      ]
+    },
+    {
+      title: "Extend & Constrain",
+      terms: [
+        { term: "MCP", def: "Model Context Protocol, standard for connecting your Harness and its LLM to new Tools via other services." },
+        { term: "Hooks", def: "Deterministic automations (harness-specific) to react to lifecycle events of agentic flows." },
+        { term: "Plugins", def: "Installable bundles that package skills, hooks, MCP servers, and commands together for distribution." },
+        { term: "Approval Mode", def: "Session setting that determines how much the agent can execute autonomously, ('auto', 'manual', etc.)." },
+        { term: "Permissions", def: "Rules governing which tools or actions run automatically, need approval, or are denied outright." },
+        { term: "Plan Mode", def: "Read-only mode where the harness explores and proposes a plan before performing writes or other side effects." },
+      ]
+    }
   ]
 };
 

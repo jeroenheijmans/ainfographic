@@ -14,9 +14,16 @@
     ]);
   }
 
+  function renderGroup(g) {
+    return el("div", { class: "feature-group" }, [
+      el("div", { class: "feature-group-title", text: g.title }),
+      ...g.terms.map(renderTerm)
+    ]);
+  }
+
   function render() {
     const data = window.DATA.features;
-    return el("div", { class: "features-wrap" }, data.terms.map(renderTerm));
+    return el("div", { class: "features-wrap" }, data.groups.map(renderGroup));
   }
 
   const meta = window.DATA.features;
