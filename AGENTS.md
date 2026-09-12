@@ -31,10 +31,16 @@ The data is meant to be "most recent state".
 Your training data might lag behind, so when you strongly feel you see a data mistake: check with the human operator.
 For example: SpaceX and XAI have merged into SpaceXAI by now.
 
+## Cache busting
+
+GitHub Pages caches every file for 10 minutes and offers no header control.
+The data is inlined in `docs/index.html` so it can never be stale relative to the page.
+Any change under `docs/css/` or `docs/js/` must bump every `?v=` in `docs/index.html` to today's date (same value everywhere).
+
 ## Sections
 
 Section order/numbers follow the `<script>` order in `docs/index.html`.
-Each section's data lives in `docs/js/data.js`, under `window.DATA.<key>`.
+Each section's data lives in the inline `<script>` in `docs/index.html`, under `window.DATA.<key>`.
 Rendering logic lives in the linked `docs/js/sections/` file.
 
 1. Labs & Models (`labs-and-models`) - [js/sections/labs.js](docs/js/sections/labs.js) - `DATA.labs`
