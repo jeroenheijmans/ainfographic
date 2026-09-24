@@ -455,6 +455,7 @@ a:hover { color: var(--accent-link-hover); text-decoration: underline; }
   color: var(--card);
   font-weight: 500;
 }
+.lab-chip--main.lab-chip--not-llm { background: oklch(0.4 0.015 260); }
 .lab-chip--secondary {
   background: var(--card-tint);
   border: 1px dashed oklch(0.8 0.01 260);
