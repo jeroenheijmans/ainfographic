@@ -6,7 +6,8 @@
   function chip(m, kind, footnotes) {
     const label = modelLabel(m);
     const footnote = modelFootnote(m);
-    const span = el("span", { class: "lab-chip lab-chip--" + kind }, label);
+    const notLlm = typeof m !== "string" && m.notLlm;
+    const span = el("span", { class: "lab-chip lab-chip--" + kind + (notLlm ? " lab-chip--not-llm" : "") }, label);
     if (footnote) {
       footnotes.push(footnote);
       const mark = String(footnotes.length);

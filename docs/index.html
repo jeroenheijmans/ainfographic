@@ -7,7 +7,7 @@
 <meta name="description" content="A reference sheet with the most prominent bits of info: labs, models, inference, harnesses and the vocabulary around them.">
 <!-- Cache busting: bump every ?v= below (same date everywhere) whenever css/ or js/ changes.
      The data lives inline in this file (see the <script> before app.js) so it is never stale relative to the page. -->
-<link rel="stylesheet" href="css/style.css?v=2026-09-13">
+<link rel="stylesheet" href="css/style.css?v=2026-09-24">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -70,6 +70,7 @@ window.DATA = {
     minimax: "png",
     mistral: "png",
     qoder: "png",
+    typesafe: "png",
     vibe: "png",
   },
 
@@ -136,6 +137,12 @@ window.DATA = {
             main: ["Nemotron Nano", "Nemotron Super", "Nemotron Ultra"],
             secondary: ["Nemotron Speech"],
           },
+          {
+            name: "TypeSafe AI",
+            key: "typesafe",
+            country: "US",
+            main: [{ name: "Jev", notLlm: true, footnote: "Not an LLM: 'System One' model returning typed decisions with probabilities, no text." }],
+          },
         ],
       },
       {
@@ -171,6 +178,7 @@ window.DATA = {
             key: "minimax",
             country: "CN",
             main: ["MiniMax"],
+            secondary: ["Hailuo"],
           },
           {
             name: "Z.ai",
@@ -207,7 +215,7 @@ window.DATA = {
     intro: "Every major lab (e.g. OpenAI, Anthropic, Google, Mistral, Alibaba, etc.) serves its own models. Listed here are the providers that host several labs' models. Indicative, not exhaustive — a trailing ellipsis means a long tail. Hyperscalers come first, highlighted in dark blocks.",
     hyperscalers: [
       { name: "Amazon", key: "amazon", label: "Bedrock",
-        hosts: ["Nova", "OpenAI", "Anthropic", "gpt-oss", "gemma", "Llama", "Qwen", "DeepSeek", "MiniMax", "Kimi", "Nemotron", "Mistral", "GLM"],
+        hosts: ["Nova", "OpenAI", "Anthropic", "Grok", "gpt-oss", "gemma", "Llama", "Qwen", "DeepSeek", "MiniMax", "Kimi", "Nemotron", "Mistral", "GLM"],
         longTail: true, },
       { name: "Microsoft", key: "microsoft", label: "Azure Foundry",
         hosts: ["OpenAI", "Anthropic", "Cohere", "Llama", "Phi", "Mistral", "Grok", "DeepSeek"],
@@ -232,7 +240,7 @@ window.DATA = {
         hosts: ["Qwen", "MiniMax", "GLM", "Kimi", "Nemotron", "DeepSeek"],
         longTail: true, },
       { name: "SiliconFlow", key: "siliconflow", hosts: ["MiniMax", "GLM", "Kimi", "DeepSeek", "Qwen"] },
-      { name: "Hugging Face Inference Endpoints", key: "hugging-face", hosts: [], note: "Bring your own.", },
+      { name: "Hugging Face Inference Endpoints", key: "hugging-face", hosts: [], note: "Bring your own. Being acquired by NVIDIA.", },
     ],
     routers: [
       { name: "OpenRouter", key: "openrouter", hosts: [], note: "Nearly all models from all labs.", },
@@ -265,11 +273,12 @@ window.DATA = {
       { name: "Copilot", vendor: "GitHub", vendorKey: "github", toolKey: "copilot", forms: ["CLI Tools", "IDE Extensions", "SaaS Tools"] },
       { name: "Cursor", vendor: "SpaceXAI", vendorKey: "spacexai", toolKey: "cursor", forms:  ["IDEs", "CLI Tools", "Standalone GUI"] },
       { name: "Devin", vendor: "Cognition", vendorKey: "cognition", toolKey: "devin", forms: ["IDEs", "SaaS Tools"] },
+      { name: "Grok Build", vendor: "SpaceXAI", vendorKey: "spacexai", toolKey: "spacexai", forms: ["CLI Tools"] },
       { name: "Junie", vendor: "JetBrains", vendorKey: "jetbrains", toolKey: "junie", forms: ["CLI Tools", "IDE Extensions"] },
-      { name: "Kiro", vendor: "Amazon", vendorKey: "amazon", toolKey: "kiro", forms: ["IDEs"] },
+      { name: "Kiro", vendor: "Amazon", vendorKey: "amazon", toolKey: "kiro", forms: ["IDEs", "CLI Tools"] },
       { name: "Lovable", vendor: "Lovable", vendorKey: "lovable", toolKey: "lovable", forms: ["Browser Apps"] },
       { name: "OpenCode", vendor: "Anomaly", vendorKey: "anomaly", toolKey: "opencode", forms: ["CLI Tools", "IDE Extensions"] },
-      { name: "Q Developer", vendor: "Amazon", vendorKey: "amazon", toolKey: "q-developer", forms: ["IDE Extensions"] },
+      { name: "Pi", vendor: "Earendil", vendorKey: "earendil", toolKey: "pi", forms: ["CLI Tools"] },
       { name: "Qoder", vendor: "Alibaba", vendorKey: "alibaba", toolKey: "qoder", forms: ["CLI Tools", "IDEs"] },
       { name: "Replit", vendor: "Replit", vendorKey: "replit", toolKey: "replit", forms: ["Browser Apps"] },
       { name: "Trae", vendor: "ByteDance", vendorKey: "bytedance", toolKey: "trae", forms: ["IDEs"] },
@@ -340,7 +349,7 @@ window.DATA = {
       { name: "Runtimes", items: ["llama.cpp (ggml)", "Ollama", "LM Studio", "MLX (Apple)", "llamafile (Mozilla)"] },
       { name: "Weight Formats", items: ["safetensors (canonical)", "GGUF (llama.cpp, Ollama)", "MLX (Apple silicon)", "AWQ/GPTQ (quantized GPU)", "EXL2/EXL3 (ExLlamaV3)", "MXFP4/NVFP4 (FP4 microscaling)"] },
       { name: "Distribution", items: ["Hugging Face Hub", "Ollama registry", "direct from lab", "ModelScope"] },
-      { name: "Main runnable model families", items: ["gpt-oss", "gemma", "llama", "Qwen", "DeepSeek", "GLM", "Kimi", "Mistral", "Nemotron", "Phi", "MiMo", "MiniMax"] },
+      { name: "Main runnable model families", items: ["gpt-oss", "gemma", "llama", "Qwen", "DeepSeek", "GLM", "Kimi", "Mistral", "Nemotron", "Phi", "MiMo", "MiniMax", "Muse"] },
     ],
   },
 
@@ -456,6 +465,7 @@ window.DATA = {
     title: "Initiatives & Experiments",
     intro: "Strange and wonderful things at the edge. Stuff that might pop up at the lunch table, but isn't everyday stuff for most developers... for now.",
     items: [
+      { name: "Jev", def: "TypeSafe AI's 'System One' model: send it state, get back typed decisions with probabilities instead of text." },
       { name: "Dolt", def: "SQL database with git-style versioning used for AI agent state persistence." },
       { name: "Beads", def: "graph-based issue tracker built on Dolt, for AI agent use." },
       { name: "Gas Town", def: "Steve Yegge's multi-agent orchestration system for Claude Code, GitHub Copilot, and other AI agents with persistent work tracking." },
@@ -471,15 +481,15 @@ window.DATA = {
 };
 </script>
 
-<script src="js/app.js?v=2026-09-13" defer></script>
-<script src="js/sections/labs.js?v=2026-09-13" defer></script>
-<script src="js/sections/inference.js?v=2026-09-13" defer></script>
-<script src="js/sections/tools.js?v=2026-09-13" defer></script>
-<script src="js/sections/features.js?v=2026-09-13" defer></script>
-<script src="js/sections/local.js?v=2026-09-13" defer></script>
-<script src="js/sections/sdk.js?v=2026-09-13" defer></script>
-<script src="js/sections/security.js?v=2026-09-13" defer></script>
-<script src="js/sections/terminology.js?v=2026-09-13" defer></script>
-<script src="js/sections/initiatives.js?v=2026-09-13" defer></script>
+<script src="js/app.js?v=2026-09-24" defer></script>
+<script src="js/sections/labs.js?v=2026-09-24" defer></script>
+<script src="js/sections/inference.js?v=2026-09-24" defer></script>
+<script src="js/sections/tools.js?v=2026-09-24" defer></script>
+<script src="js/sections/features.js?v=2026-09-24" defer></script>
+<script src="js/sections/local.js?v=2026-09-24" defer></script>
+<script src="js/sections/sdk.js?v=2026-09-24" defer></script>
+<script src="js/sections/security.js?v=2026-09-24" defer></script>
+<script src="js/sections/terminology.js?v=2026-09-24" defer></script>
+<script src="js/sections/initiatives.js?v=2026-09-24" defer></script>
 </body>
 </html>
