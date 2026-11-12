@@ -6,8 +6,7 @@
   function chip(m, kind, footnotes) {
     const label = modelLabel(m);
     const footnote = modelFootnote(m);
-    const notLlm = typeof m !== "string" && m.notLlm;
-    const span = el("span", { class: "lab-chip lab-chip--" + kind + (notLlm ? " lab-chip--not-llm" : "") }, label);
+    const span = el("span", { class: "lab-chip lab-chip--" + kind }, label);
     if (footnote) {
       footnotes.push(footnote);
       const mark = String(footnotes.length);
@@ -23,10 +22,12 @@
 
   function renderLabCard(lab) {
     const footnotes = [];
-    const main = el("div", { class: "lab-chips" }, lab.main.map((m) => chip(m, "main", footnotes)));
-    const secondary = (lab.secondary && lab.secondary.length)
-      ? el("div", { class: "lab-chips lab-chips--secondary" }, lab.secondary.map((m) => chip(m, "secondary", footnotes)))
+    const chipRow = (list, kind) => (list && list.length)
+      ? el("div", { class: "lab-chips lab-chips--" + kind }, list.map((m) => chip(m, kind, footnotes)))
       : null;
+    const main = chipRow(lab.main, "main");
+    const secondary = chipRow(lab.secondary, "secondary");
+    const decision = chipRow(lab.decisionModels, "decision");
     const card = el("div", { class: "lab-card" }, [
       el("div", { class: "lab-card-head" }, [
         logoImg(lab.key, lab.name),
@@ -35,6 +36,7 @@
       ]),
       main,
       secondary,
+      decision,
       footnotes.length ? el("div", { class: "lab-footnote", text: footnotes.map((f, i) => (i + 1) + ". " + f).join(" ") }) : null
     ]);
     return card;

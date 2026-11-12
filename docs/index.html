@@ -7,7 +7,7 @@
 <meta name="description" content="A reference sheet with the most prominent bits of info: labs, models, inference, harnesses and the vocabulary around them.">
 <!-- Cache busting: bump every ?v= below (same date everywhere) whenever css/ or js/ changes.
      The data lives inline in this file (see the <script> before app.js) so it is never stale relative to the page. -->
-<link rel="stylesheet" href="css/style.css?v=2026-09-24">
+<link rel="stylesheet" href="css/style.css?v=2026-11-12">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -89,6 +89,7 @@ window.DATA = {
             country: "US",
             main: ["GPT Astra", "GPT Sol", "GPT Luna", "GPT Terra", "gpt-oss"],
             secondary: ["GPT Codex", "GPT nano", "GPT mini", "Sora", "GPT Image"],
+            decisionModels: ["Decisions"],
           },
           {
             name: "Anthropic",
@@ -100,8 +101,9 @@ window.DATA = {
             name: "Google",
             key: "google",
             country: "US",
-            main: ["Flash Lite", "Flash", "Pro", "Argon", "Gemma"],
-            secondary: ["Nano Banana", "Omni", "Imagen", "Veo", "Chirp"],
+            main: ["Flash Lite", "Flash", "Pro", "Argon", "Carbon", "Gemma"],
+            secondary: ["Nano Banana", "Omni", "Imagen", "Veo", "Chirp", "Genie"],
+            decisionModels: ["Decision"],
           },
           {
             name: "SpaceXAI",
@@ -116,6 +118,7 @@ window.DATA = {
             country: "US",
             main: ["Phi"],
             secondary: ["MAI"],
+            decisionModels: ["Decision-1"],
           },
           {
             name: "Meta",
@@ -127,8 +130,9 @@ window.DATA = {
             name: "Amazon",
             key: "amazon",
             country: "US",
-            main: ["Nova Micro", "Nova Lite", "Nova Pro", "Nova Premier"],
-            secondary: ["Nova Canvas", "Nova Reel", "Nova Sonic"],
+            main: ["Nova Micro", "Nova Lite", { name: "Nova Pro", footnote: "Most Nova models in maintenance mode since 07-2026; new frontier model expected at re:Invent." }],
+            secondary: ["Nova Sonic"],
+            decisionModels: ["Strands Decider"],
           },
           {
             name: "NVIDIA",
@@ -141,7 +145,8 @@ window.DATA = {
             name: "TypeSafe AI",
             key: "typesafe",
             country: "US",
-            main: [{ name: "Jev", notLlm: true, footnote: "Not an LLM: 'System One' model returning typed decisions with probabilities, no text." }],
+            main: [],
+            decisionModels: ["Jev"],
           },
         ],
       },
@@ -185,6 +190,7 @@ window.DATA = {
             key: "z-ai",
             country: "CN",
             main: ["GLM"],
+            secondary: ["GLM-Legal"],
           },
           {
             name: "Moonshot",
@@ -226,7 +232,7 @@ window.DATA = {
     ],
     providers: [
       { name: "Cloudflare Workers AI", key: "cloudflare",
-        hosts: ["gpt-oss", "gemma", "Llama", "Nemotron", "Kimi", "GLM", "Qwen", "DeepSeek", "Mistral"],
+        hosts: ["Clef", "gpt-oss", "gemma", "Llama", "Nemotron", "Kimi", "GLM", "Qwen", "DeepSeek", "Mistral"],
         longTail: true, },
       { name: "Groq", key: "groq", hosts: ["Llama", "gpt-oss", "Qwen", "Kimi"] },
       { name: "Cerebras", key: "cerebras", hosts: ["gpt-oss", "Llama", "Qwen", "GLM"] },
@@ -358,7 +364,7 @@ window.DATA = {
     title: "SDK & Application Layer",
     intro: "Various parts involved in setting up tooling in a more customized fashion.",
     layers: [
-      { name: "Wire Protocol", items: ["Model Context Protocol (MCP)", "OpenAI-compatible Chat Completions and Responses API, the de facto interop standard"] },
+      { name: "Wire Protocol", items: ["Model Context Protocol (MCP)", "OpenAI-compatible Chat Completions and Responses API", "Decisions API"] },
       { name: "Provider SDKs", items: ["OpenAI SDK", "Anthropic SDK", "Google GenAI SDK", "AWS SDK"] },
       { name: "Agent SDKs", items: ["OpenAI Agents SDK", "Claude Agent SDK (Anthropic)", "Agent Development Kit (Google)", "Strands (Amazon)", "Agent Framework (Microsoft)"] },
       { name: "Frameworks", items: ["LangChain", "LangGraph", "LlamaIndex", "Vercel AI SDK", "Pydantic AI", "Mastra", "DSPy", "Haystack", "CrewAI"] },
@@ -375,13 +381,14 @@ window.DATA = {
       { term: "Excessive Agency", def: "agent granted broader permissions/tools/autonomy than the task requires, enabling unintended high-impact actions.", },
       { term: "Lethal Trifecta", def: "access to sensitive data, untrusted input, and exfiltration capabilities. Only two is still fine, all three causes security issues.", },
       { term: "LLM Supply Chain", def: "things in your supply chain, like marketplace skills or MCP servers, might be compromised.", },
+      { term: "Cross-tenant Leakage", def: "context and prompts from different tenants and users getting mixed up on inference side", },
       { term: "Secrets in context", def: "any secrets available to the agent might be passed upstream.", },
       { term: "Model failures", def: "hallucinations, sycophancy, jailbreaks, bias, etc.", },
     ],
     mitigations: [
       { term: "Sandboxing", def: "containers, VMs, devcontainers" },
       { term: "Network Restrictions", def: "default-deny egress, domain allowlisting, private VPC endpoints" },
-      { term: "Least Privilige", def: "scoped access, read-only tools by default, no prod access" },
+      { term: "Least Privilege", def: "scoped access, read-only tools by default, no prod access" },
       { term: "Human in the Loop", def: "approval gates, plan mode, review before write or execute" },
       { term: "Auditing", def: "trails for agent actions" },
       { term: "LLM-as-Judge", def: "AI assessing safety of AI actions" },
@@ -411,6 +418,9 @@ window.DATA = {
       { name: "Models", children: [
         { name: "LLM", children: [
           { name: "GPT" },
+        ],},
+        { name: "Decision Model", children: [
+          { name: "System One" },
         ],},
         { name: "Multi-modal" },
         { name: "Licensing", children: [
@@ -465,7 +475,6 @@ window.DATA = {
     title: "Initiatives & Experiments",
     intro: "Strange and wonderful things at the edge. Stuff that might pop up at the lunch table, but isn't everyday stuff for most developers... for now.",
     items: [
-      { name: "Jev", def: "TypeSafe AI's 'System One' model: send it state, get back typed decisions with probabilities instead of text." },
       { name: "Dolt", def: "SQL database with git-style versioning used for AI agent state persistence." },
       { name: "Beads", def: "graph-based issue tracker built on Dolt, for AI agent use." },
       { name: "Gas Town", def: "Steve Yegge's multi-agent orchestration system for Claude Code, GitHub Copilot, and other AI agents with persistent work tracking." },
@@ -474,6 +483,7 @@ window.DATA = {
       { name: "OpenClaw", def: "open-source autonomous coding agent framework (by Peter Steinberger)" },
       { name: "Ralph Loop", def: "agent execution pattern (originated by Geoffrey Huntley) that loops an LLM until success criteria are met." },
       { name: "ChatJimmy", def: "experimental hardware-based AI interface optimized for speed, by Taalas (acquired by AMD)." },
+      { name: "OpenTPU", def: "open-source AI accelerator, designed largely by AI." },
       { name: "Moltbook", def: "experimental synthetic social network populated by AI agents (acquired by Meta)" },
       { name: "Crustafarianism", def: "emergent machine-to-machine synthetic theology/cult centered on carcinization that spontaneously arose among agents on Moltbook." },
     ],
@@ -481,15 +491,15 @@ window.DATA = {
 };
 </script>
 
-<script src="js/app.js?v=2026-09-24" defer></script>
-<script src="js/sections/labs.js?v=2026-09-24" defer></script>
-<script src="js/sections/inference.js?v=2026-09-24" defer></script>
-<script src="js/sections/tools.js?v=2026-09-24" defer></script>
-<script src="js/sections/features.js?v=2026-09-24" defer></script>
-<script src="js/sections/local.js?v=2026-09-24" defer></script>
-<script src="js/sections/sdk.js?v=2026-09-24" defer></script>
-<script src="js/sections/security.js?v=2026-09-24" defer></script>
-<script src="js/sections/terminology.js?v=2026-09-24" defer></script>
-<script src="js/sections/initiatives.js?v=2026-09-24" defer></script>
+<script src="js/app.js?v=2026-11-12" defer></script>
+<script src="js/sections/labs.js?v=2026-11-12" defer></script>
+<script src="js/sections/inference.js?v=2026-11-12" defer></script>
+<script src="js/sections/tools.js?v=2026-11-12" defer></script>
+<script src="js/sections/features.js?v=2026-11-12" defer></script>
+<script src="js/sections/local.js?v=2026-11-12" defer></script>
+<script src="js/sections/sdk.js?v=2026-11-12" defer></script>
+<script src="js/sections/security.js?v=2026-11-12" defer></script>
+<script src="js/sections/terminology.js?v=2026-11-12" defer></script>
+<script src="js/sections/initiatives.js?v=2026-11-12" defer></script>
 </body>
 </html>
